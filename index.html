@@ -261,72 +261,30 @@
       color: #FFD700; transform: scale(1.1) rotate(90deg);
     }
 
-    /* Pestañas de navegación de la tarjeta (fijas arriba en la tarjeta) */
-    .card-tabs {
-      display: flex; align-items: center; justify-content: center;
-      gap: 6px; margin: 0 auto 14px auto;
-      max-width: calc(100% - 46px);
-      background: rgba(255, 215, 0, 0.05);
-      padding: 4px; border-radius: 40px;
-      border: 1px solid rgba(255, 215, 0, 0.15);
-      flex-shrink: 0;
-      z-index: 5;
-    }
-    .tab-btn {
-      background: transparent; border: none;
-      color: rgba(255, 235, 180, 0.7);
-      padding: 7px 15px;
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.82rem; font-weight: 600;
-      border-radius: 30px; cursor: pointer;
-      transition: all 0.25s ease;
-      display: flex; align-items: center; gap: 5px;
-      white-space: nowrap;
-    }
-    .tab-btn.active {
-      background: linear-gradient(135deg, rgba(255, 215, 0, 0.35), rgba(255, 152, 0, 0.3));
-      color: #FFFDE7;
-      box-shadow: 0 2px 10px rgba(255, 215, 0, 0.2);
-    }
-    .tab-btn:hover:not(.active) { color: #FFFDE7; background: rgba(255, 215, 0, 0.1); }
-
-    /* Área con scroll interno suave y hermoso para cada pestaña */
-    .tab-content {
-      display: none;
+    /* Contenido de la Carta con scroll suave */
+    .card-body {
       flex: 1 1 auto;
       min-height: 0;
       overflow-y: auto;
       overflow-x: hidden;
       -webkit-overflow-scrolling: touch;
       overscroll-behavior: contain;
-      padding: 2px 6px 12px 6px;
+      padding: 6px 10px 14px 10px;
       scrollbar-width: thin;
       scrollbar-color: rgba(255, 215, 0, 0.4) rgba(255, 215, 0, 0.04);
     }
-    .tab-content.active {
-      display: block;
-      animation: tabFadeIn 0.35s ease forwards;
-    }
-    @keyframes tabFadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Scrollbar personalizada dorada para navegadores Webkit */
-    .tab-content::-webkit-scrollbar {
-      width: 6px;
-    }
-    .tab-content::-webkit-scrollbar-track {
+    .card-body::-webkit-scrollbar { width: 6px; }
+    .card-body::-webkit-scrollbar-track {
       background: rgba(255, 215, 0, 0.04);
       border-radius: 10px;
       margin: 4px 0;
     }
-    .tab-content::-webkit-scrollbar-thumb {
+    .card-body::-webkit-scrollbar-thumb {
       background: linear-gradient(180deg, rgba(255, 215, 0, 0.5), rgba(255, 152, 0, 0.5));
       border-radius: 10px;
       box-shadow: 0 0 6px rgba(255, 215, 0, 0.25);
     }
-    .tab-content::-webkit-scrollbar-thumb:hover {
+    .card-body::-webkit-scrollbar-thumb:hover {
       background: linear-gradient(180deg, #FFD700, #FF9800);
       box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
     }
@@ -340,7 +298,7 @@
 
     .card-title {
       font-family: 'Dancing Script', cursive;
-      font-size: clamp(2rem, 5.2vw, 2.7rem);
+      font-size: clamp(2.1rem, 5.5vw, 2.85rem);
       color: #FFD700;
       text-shadow: 0 0 22px rgba(255, 215, 0, 0.6), 0 0 45px rgba(255, 140, 0, 0.3);
       line-height: 1.15; margin-bottom: 4px;
@@ -373,7 +331,7 @@
       font-style: italic;
       font-size: clamp(0.88rem, 2.2vw, 0.98rem);
       color: rgba(255, 248, 225, 0.94);
-      line-height: 1.72; margin-bottom: 20px;
+      line-height: 1.72; margin-bottom: 18px;
       text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
     }
     .card-message strong { color: #FFE082; font-style: normal; }
@@ -382,7 +340,40 @@
       font-family: 'Dancing Script', cursive;
       font-size: clamp(1.18rem, 3.2vw, 1.45rem);
       color: #FFE566; opacity: 0.95;
-      padding-bottom: 6px;
+      padding-bottom: 12px;
+    }
+
+    /* Botón Dorado de Explorar la Galaxia */
+    .card-explore-btn {
+      margin-top: 10px;
+      margin-bottom: 6px;
+      width: 100%;
+      padding: 13px 22px;
+      background: linear-gradient(135deg, #FFD700 0%, #FFA000 50%, #FF8F00 100%);
+      border: none;
+      border-radius: 50px;
+      color: #160c02;
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(0.88rem, 2.2vw, 1rem);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 0 26px rgba(255, 215, 0, 0.5), 0 4px 18px rgba(0,0,0,0.5);
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .card-explore-btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 0 38px rgba(255, 215, 0, 0.8), 0 8px 24px rgba(0,0,0,0.6);
+      background: linear-gradient(135deg, #FFE082 0%, #FFB300 50%, #FF9800 100%);
+    }
+    .card-explore-btn:active {
+      transform: scale(0.98);
     }
 
     /* Indicador visual de scroll */
@@ -410,66 +401,6 @@
       display: none;
     }
 
-    /* Pestaña 2: Jardín de Haru */
-    .flower-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 10px; margin-top: 8px; text-align: left;
-    }
-    .flower-item {
-      background: rgba(255, 215, 0, 0.06);
-      border: 1px solid rgba(255, 215, 0, 0.18);
-      border-radius: 14px; padding: 10px 12px;
-      transition: transform 0.2s, background 0.2s;
-      cursor: pointer;
-    }
-    .flower-item:hover {
-      transform: translateY(-2px);
-      background: rgba(255, 215, 0, 0.12);
-      border-color: rgba(255, 215, 0, 0.4);
-    }
-    .f-icon { font-size: 1.6rem; margin-bottom: 3px; }
-    .f-name { font-size: 0.88rem; font-weight: 700; color: #FFE082; margin-bottom: 2px; }
-    .f-desc { font-size: 0.74rem; color: rgba(255, 255, 255, 0.75); line-height: 1.35; }
-
-    /* Pestaña 3: Deseo Galáctico */
-    .wish-box {
-      padding: 10px 0;
-    }
-    .wish-intro {
-      font-size: 0.88rem; color: rgba(255, 245, 210, 0.85);
-      line-height: 1.55; margin-bottom: 14px;
-    }
-    .wish-chips {
-      display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
-      margin-bottom: 18px;
-    }
-    .wish-chip {
-      background: rgba(255, 215, 0, 0.08);
-      border: 1px solid rgba(255, 215, 0, 0.2);
-      border-radius: 20px; padding: 6px 13px;
-      font-size: 0.8rem; color: #FFFDE7;
-      cursor: pointer; transition: all 0.25s ease;
-    }
-    .wish-chip:hover, .wish-chip.selected {
-      background: rgba(255, 215, 0, 0.28);
-      border-color: #FFD700; transform: scale(1.04);
-      box-shadow: 0 0 14px rgba(255, 215, 0, 0.3);
-    }
-    .wish-send-btn {
-      width: 100%;
-      padding: 12px;
-      background: linear-gradient(135deg, #FFD700, #FF9800);
-      border: none; border-radius: 50px;
-      color: #1a0e00; font-weight: 700; font-size: 0.92rem;
-      cursor: pointer; transition: all 0.25s ease;
-      box-shadow: 0 0 22px rgba(255, 215, 0, 0.4);
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-    }
-    .wish-send-btn:hover {
-      transform: scale(1.02);
-      box-shadow: 0 0 35px rgba(255, 215, 0, 0.65);
-    }
-
     /* Media queries adaptables */
     @media (max-height: 720px) {
       .glass-card {
@@ -479,13 +410,14 @@
       .card-title {
         font-size: 2rem;
       }
-      .card-tabs {
-        margin-bottom: 10px;
-      }
       .card-message {
         font-size: 0.86rem;
         line-height: 1.6;
-        margin-bottom: 14px;
+        margin-bottom: 12px;
+      }
+      .card-explore-btn {
+        padding: 10px 16px;
+        font-size: 0.86rem;
       }
     }
 
@@ -495,17 +427,9 @@
         padding: 16px 14px 12px 14px;
         border-radius: 22px;
       }
-      .card-tabs {
-        gap: 4px;
-        margin-bottom: 10px;
-      }
-      .tab-btn {
-        padding: 6px 11px;
-        font-size: 0.76rem;
-      }
-      .flower-grid {
-        grid-template-columns: 1fr;
-        gap: 8px;
+      .card-explore-btn {
+        padding: 11px 16px;
+        font-size: 0.85rem;
       }
     }
 
@@ -519,33 +443,6 @@
       15%  { opacity: 0.75; }
       85%  { opacity: 0.3; }
       100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
-    }
-
-    /* ═══════════════════════════════════════════════
-       BOTÓN REABRIR
-    ═══════════════════════════════════════════════ */
-    #reopen-btn {
-      position: fixed; bottom: 26px; left: 50%;
-      transform: translateX(-50%);
-      z-index: 15; display: none;
-      padding: 11px 28px;
-      font-family: 'Dancing Script', cursive; font-size: 1.15rem; font-weight: 700;
-      background: rgba(18, 14, 4, 0.85);
-      border: 1px solid rgba(255, 215, 0, 0.38);
-      border-radius: 50px; color: #FFE566;
-      cursor: pointer; backdrop-filter: blur(14px);
-      box-shadow: 0 0 22px rgba(255, 215, 0, 0.25), 0 8px 24px rgba(0, 0, 0, 0.6);
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    #reopen-btn.show { display: block; animation: reopenPulse 3s ease-in-out infinite; }
-    @keyframes reopenPulse {
-      0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.25); }
-      50% { box-shadow: 0 0 35px rgba(255, 215, 0, 0.55); transform: translateX(-50%) scale(1.04); }
-    }
-    #reopen-btn:hover {
-      background: rgba(30, 22, 6, 0.95);
-      border-color: #FFD700;
-      transform: translateX(-50%) scale(1.08);
     }
 
     /* ═══════════════════════════════════════════════
@@ -830,28 +727,28 @@
     }
 
     /* ═══════════════════════════════════════════════
-       RADAR DE MUNDOS / PLANET DOCK
+       RADAR DE MUNDOS / PLANET DOCK (REFINADO & NO INVASIVO)
     ═══════════════════════════════════════════════ */
     #planet-dock {
       position: fixed;
-      bottom: 22px;
+      bottom: 14px;
       left: 50%;
-      transform: translateX(-50%) translateY(110px);
+      transform: translateX(-50%) translateY(120px);
       z-index: 45;
       display: flex;
       align-items: center;
-      gap: 6px;
-      background: rgba(14, 10, 4, 0.85);
-      border: 1px solid rgba(255, 215, 0, 0.38);
+      gap: 5px;
+      background: rgba(10, 7, 3, 0.82);
+      border: 1px solid rgba(255, 215, 0, 0.32);
       border-radius: 50px;
-      padding: 6px 14px;
+      padding: 5px 12px;
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(255, 215, 0, 0.18);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.85), 0 0 20px rgba(255, 215, 0, 0.15);
       opacity: 0;
       pointer-events: none;
-      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
-      max-width: 95vw;
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.65s ease;
+      max-width: 96vw;
       overflow-x: auto;
       scrollbar-width: none;
     }
@@ -865,17 +762,17 @@
       background: transparent;
       border: 1px solid transparent;
       border-radius: 40px;
-      padding: 7px 13px;
+      padding: 6px 11px;
       color: rgba(255, 240, 200, 0.88);
       font-family: 'Outfit', sans-serif;
-      font-size: 0.82rem;
+      font-size: 0.79rem;
       font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       white-space: nowrap;
-      transition: all 0.25s ease;
+      transition: all 0.22s ease;
     }
     .dock-btn:hover {
       background: rgba(255, 215, 0, 0.16);
@@ -884,13 +781,23 @@
       transform: translateY(-2px);
     }
     .dock-btn.active {
-      background: linear-gradient(135deg, rgba(255, 215, 0, 0.4), rgba(255, 152, 0, 0.35));
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.38), rgba(255, 152, 0, 0.32));
       border-color: #FFD700;
       color: #FFFDE7;
-      box-shadow: 0 0 16px rgba(255, 215, 0, 0.35);
+      box-shadow: 0 0 14px rgba(255, 215, 0, 0.35);
+    }
+    .dock-btn-letter {
+      background: rgba(255, 215, 0, 0.1);
+      border-color: rgba(255, 215, 0, 0.3);
+      color: #FFE566;
+    }
+    .dock-btn-letter:hover {
+      background: rgba(255, 215, 0, 0.24);
+      border-color: #FFD700;
+      color: #fff;
     }
     .dock-icon {
-      font-size: 1.15rem;
+      font-size: 1.05rem;
     }
 
     /* ═══════════════════════════════════════════════
@@ -1088,24 +995,27 @@
     @media (max-width: 600px) {
       #planet-sheet {
         top: auto;
-        bottom: 78px;
+        bottom: 74px;
         right: 50%;
         transform: translateX(50%) translateY(40px);
-        width: calc(100vw - 20px);
+        width: calc(100vw - 18px);
         max-height: 52vh;
-        padding: 16px 14px 12px 14px;
+        padding: 14px 14px 10px 14px;
       }
       #planet-sheet.show {
         transform: translateX(50%) translateY(0);
       }
       #planet-dock {
-        bottom: 12px;
-        padding: 4px 8px;
-        gap: 3px;
+        bottom: 8px;
+        padding: 3px 6px;
+        gap: 2px;
       }
       .dock-btn {
-        padding: 5px 9px;
-        font-size: 0.72rem;
+        padding: 4px 7px;
+        font-size: 0.69rem;
+      }
+      .dock-icon {
+        font-size: 0.95rem;
       }
       .ps-title {
         font-size: 1.7rem;
@@ -1172,20 +1082,13 @@
     <span class="toast-text" id="toast-text"></span>
   </div>
 
-  <!-- ─── Tarjeta Glassmorphism 3D con Tabs para Haru ─── -->
+  <!-- ─── Tarjeta Glassmorphism 3D para Haru (Carta Pura y Elegante) ─── -->
   <div id="card-overlay">
     <div class="glass-card" id="glass-card">
-      <button class="card-close" id="card-close" title="Cerrar">✕</button>
+      <button class="card-close" id="card-close" onclick="closeCardAndExplore()" title="Cerrar y Explorar">✕</button>
 
-      <!-- Pestañas de la Tarjeta -->
-      <div class="card-tabs">
-        <button class="tab-btn active" onclick="switchCardTab('letter')">💌 Carta</button>
-        <button class="tab-btn" onclick="switchCardTab('garden')">🌸 Jardín</button>
-        <button class="tab-btn" onclick="switchCardTab('wish')">✨ Tu Deseo</button>
-      </div>
-
-      <!-- TAB 1: Carta Personal para Haru -->
-      <div id="tab-letter" class="tab-content active">
+      <!-- Carta Personal para Haru -->
+      <div id="tab-letter" class="card-body">
         <div class="card-top-tag">Septiembre · Más de un año de amistad 🌟</div>
         <h2 class="card-title">Para ti, Haru</h2>
         <p class="card-date">Donde brilla tu luz, siempre florece primavera</p>
@@ -1214,61 +1117,9 @@
           Con mucho cariño y admiración<br/>
           <span style="color:#FFD700; font-size:1.15em;">- Javier 💛</span>
         </div>
-      </div>
 
-      <!-- TAB 2: El Universo de Haru -->
-      <div id="tab-garden" class="tab-content">
-        <div class="card-top-tag">El Universo de Haru ✨</div>
-        <h3 style="font-family:'Dancing Script', cursive; font-size:2.2rem; color:#FFD700; margin-bottom:12px;">Lo que la hace única</h3>
-        <div class="flower-grid">
-          <div class="flower-item" onclick="triggerFlowerShowcase('Hot Wheels 🚗', '¡La coleccionista más cool del universo! ¡Tiene el mejor gusto!')">
-            <div class="f-icon">🚗</div>
-            <div class="f-name">Hot Wheels</div>
-            <div class="f-desc">Coleccionista y apasionada. ¡La reina de los carritos!</div>
-          </div>
-          <div class="flower-item" onclick="triggerFlowerShowcase('Rocket League 🎮', '¡La gamer que domina las canchas del universo! MVP siempre.')">
-            <div class="f-icon">🎮</div>
-            <div class="f-name">Rocket League</div>
-            <div class="f-desc">Su juego favorito. ¡Gamer de corazón y alma!</div>
-          </div>
-          <div class="flower-item" onclick="triggerFlowerShowcase('Perritos 🐶', '¡El amor más puro siempre viene con cola y cuatro patas!')">
-            <div class="f-icon">🐶</div>
-            <div class="f-name">Perritos</div>
-            <div class="f-desc">Amor peludo incondicional. ¡Los ama con toda el alma!</div>
-          </div>
-          <div class="flower-item" onclick="triggerFlowerShowcase('Pollo Frito 🍗', '¡La mejor comida del universo, según Haru y el universo tiene razón!')">
-            <div class="f-icon">🍗</div>
-            <div class="f-name">Pollo Frito</div>
-            <div class="f-desc">Su platillo sagrado. ¡El sabor que alegra cualquier día!</div>
-          </div>
-          <div class="flower-item" onclick="triggerFlowerShowcase('Anime 🎌', '¡Historias, personajes y mundos que llenan el alma de Haru!')">
-            <div class="f-icon">🎌</div>
-            <div class="f-name">Anime</div>
-            <div class="f-desc">Arte y alma japonesa. ¡Apasionada y fiel seguidora!</div>
-          </div>
-          <div class="flower-item" onclick="triggerFlowerShowcase('Creadora ✨', '¡Construyendo su comunidad con amor, voz hermosa y autenticidad!')">
-            <div class="f-icon">📱</div>
-            <div class="f-name">Creadora</div>
-            <div class="f-desc">TikTok &amp; lives. Su comunidad la ama porque es real.</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- TAB 3: Deseo Galáctico -->
-      <div id="tab-wish" class="tab-content">
-        <div class="card-top-tag">Magia Galáctica ✨</div>
-        <h3 style="font-family:'Dancing Script', cursive; font-size:2.2rem; color:#FFD700; margin-bottom:8px;">Envía tu Deseo</h3>
-        <p class="wish-intro">Elige un deseo especial y libera una estrella fugaz que transformará toda tu galaxia, Haru:</p>
-        <div class="wish-chips">
-          <span class="wish-chip selected" onclick="selectWish(this, '¡Que tu comunidad crezca!')">Crece tu comunidad 🚀</span>
-          <span class="wish-chip" onclick="selectWish(this, '¡Éxito en tu contenido!')">Éxito en tu contenido 🎥</span>
-          <span class="wish-chip" onclick="selectWish(this, '¡Felicidad y paz en tu vida!')">Felicidad eterna 🌻</span>
-          <span class="wish-chip" onclick="selectWish(this, '¡Que ganes todos los partidos!')">Domina Rocket League 🎮</span>
-          <span class="wish-chip" onclick="selectWish(this, '¡Infinite pollo frito para Haru!')">Pollo frito infinito 🍗</span>
-        </div>
-        <button class="wish-send-btn" onclick="sendWishStar()">
-          <span>¡Liberar Estrella de Deseo!</span>
-          <span>✦</span>
+        <button class="card-explore-btn" onclick="closeCardAndExplore()">
+          <span>✦ Entrar a Explorar mi Universo 🪐</span>
         </button>
       </div>
 
@@ -1279,9 +1130,6 @@
       </div>
     </div>
   </div>
-
-  <!-- ─── Botón Reabrir Tarjeta ─── -->
-  <button id="reopen-btn" onclick="reopenCard()">Tu galaxia te espera, Haru 🌻💛</button>
 
   <!-- ─── Control de Audio Moderno con Ondas ─── -->
   <div id="audio-control" class="audio-control">
@@ -1326,7 +1174,7 @@
         <span class="ps-badge" id="ps-badge">Mundo 1</span>
         <h2 class="ps-title" id="ps-title">Planeta Dragster</h2>
       </div>
-      <button class="ps-close" onclick="closePlanetSheet()" title="Cerrar">✕</button>
+      <button class="ps-close" onclick="returnToGalaxyOverview()" title="Volver a la Galaxia">✕</button>
     </div>
     <div class="ps-body">
       <div class="ps-subtitle" id="ps-subtitle">Santuario de Velocidad y Coleccionismo</div>
@@ -1372,6 +1220,10 @@
     <button class="dock-btn" id="dock-p5" onclick="flyToPlanet(5)" title="Supernova Creadora">
       <span class="dock-icon">📱</span>
       <span>Creadora</span>
+    </button>
+    <button class="dock-btn dock-btn-letter" id="dock-letter" onclick="openLetterCard()" title="Leer Carta para Haru">
+      <span class="dock-icon">💌</span>
+      <span>Carta</span>
     </button>
   </div>
 
@@ -1423,6 +1275,66 @@
     } catch(e) {}
   }
 
+  // Sintetizador Web Audio API: Sonido Épico de Salto Hiperespacial (Warp Drive Surge)
+  function playWarpDriveSound() {
+    try {
+      initAudioContext();
+      if (!audioCtx) return;
+      const now = audioCtx.currentTime;
+
+      // 1. Motor estelar grave (warp rumble)
+      const osc = audioCtx.createOscillator();
+      const oscGain = audioCtx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(45, now);
+      osc.frequency.exponentialRampToValueAtTime(140, now + 3.8);
+
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(120, now);
+      filter.frequency.exponentialRampToValueAtTime(950, now + 3.5);
+
+      oscGain.gain.setValueAtTime(0.001, now);
+      oscGain.gain.linearRampToValueAtTime(0.18, now + 1.2);
+      oscGain.gain.linearRampToValueAtTime(0.24, now + 3.5);
+      oscGain.gain.exponentialRampToValueAtTime(0.001, now + 4.8);
+
+      osc.connect(filter);
+      filter.connect(oscGain);
+      oscGain.connect(audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 4.9);
+
+      // 2. Whoosh espacial con filtro modulado
+      const bufferSize = audioCtx.sampleRate * 4;
+      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = Math.random() * 2 - 1;
+      }
+      const noise = audioCtx.createBufferSource();
+      noise.buffer = buffer;
+
+      const noiseFilter = audioCtx.createBiquadFilter();
+      noiseFilter.type = 'bandpass';
+      noiseFilter.Q.value = 3.5;
+      noiseFilter.frequency.setValueAtTime(180, now);
+      noiseFilter.frequency.exponentialRampToValueAtTime(2200, now + 3.6);
+
+      const noiseGain = audioCtx.createGain();
+      noiseGain.gain.setValueAtTime(0.001, now);
+      noiseGain.gain.linearRampToValueAtTime(0.14, now + 2.0);
+      noiseGain.gain.linearRampToValueAtTime(0.22, now + 3.6);
+      noiseGain.gain.exponentialRampToValueAtTime(0.0001, now + 4.6);
+
+      noise.connect(noiseFilter);
+      noiseFilter.connect(noiseGain);
+      noiseGain.connect(audioCtx.destination);
+      noise.start(now);
+      noise.stop(now + 4.7);
+    } catch(e) {}
+  }
+
   // ═════════════════════════════════════════════════════════
   //  CONFIGURACIÓN THREE.JS & OPTIMIZACIÓN DE GPU (60 FPS)
   // ═════════════════════════════════════════════════════════
@@ -1460,23 +1372,25 @@
   galaxyGroup.visible = false;
   galaxyGroup.scale.set(0.001, 0.001, 0.001);
 
-  // ─── VIAJE HIPERESPACIAL (WARP SPEED) ───
-  const WARP_COUNT = isMobile ? 480 : 720;
+  // ─── VIAJE HIPERESPACIAL (WARP SPEED CINEMÁTICO ÉPICO) ───
+  const WARP_COUNT = isMobile ? 550 : 850;
   const warpGeometry = new THREE.BufferGeometry();
   const warpPositions = new Float32Array(WARP_COUNT * 2 * 3);
   const warpColors = new Float32Array(WARP_COUNT * 2 * 3);
   const starData = [];
 
-  const colorGold  = new THREE.Color('#ffe082');
-  const colorAmber = new THREE.Color('#ffb300');
-  const colorWhite = new THREE.Color('#ffffff');
+  const colorWhite  = new THREE.Color('#ffffff');
+  const colorCyan   = new THREE.Color('#00e5ff');
+  const colorGold   = new THREE.Color('#ffd700');
+  const colorAmber  = new THREE.Color('#ff9100');
+  const colorPink   = new THREE.Color('#ff4081');
 
   for (let i = 0; i < WARP_COUNT; i++) {
     const x = (Math.random() - 0.5) * 800;
     const y = (Math.random() - 0.5) * 800;
     const z = -Math.random() * 1600;
     const pick = Math.random();
-    const col = pick > 0.45 ? colorGold : (pick > 0.2 ? colorAmber : colorWhite);
+    const col = pick > 0.6 ? colorGold : (pick > 0.35 ? colorCyan : (pick > 0.15 ? colorWhite : (pick > 0.05 ? colorAmber : colorPink)));
     starData.push({ x, y, z });
 
     const idx = i * 6;
@@ -1879,297 +1793,6 @@
     { text: 'De amiga de internet a persona importantísima', icon: '💛' },
     { text: 'Haru: puro corazón, pura autenticidad, pura magia', icon: '🌟' }
   ];
-
-  const phraseColors = ['#FFD700', '#FFE566', '#FFB347', '#FFF2A0', '#FFCC44', '#FFAA00'];
-  const phraseGroup  = new THREE.Group();
-  galaxyGroup.add(phraseGroup);
-
-  function makePhraseTex(item, color) {
-    const cv = document.createElement('canvas'); cv.width = 540; cv.height = 96;
-    const ctx = cv.getContext('2d');
-    ctx.clearRect(0, 0, 540, 96);
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.shadowColor = color; ctx.shadowBlur = 22;
-    ctx.fillStyle = '#ffffff';
-    let fs = 42; ctx.font = `${fs}px 'Dancing Script', cursive`;
-    const fullText = `${item.icon} ${item.text}`;
-    while (ctx.measureText(fullText).width > 510 && fs > 20) {
-      fs -= 2; ctx.font = `${fs}px 'Dancing Script', cursive`;
-    }
-    ctx.fillText(fullText, 270, 48);
-    return new THREE.CanvasTexture(cv);
-  }
-
-  document.fonts.load("40px 'Dancing Script'").catch(() => {}).then(() => {
-    FRASES_DATA.forEach((item, i) => {
-      const color = phraseColors[i % phraseColors.length];
-      const sp = new THREE.Sprite(new THREE.SpriteMaterial({
-        map: makePhraseTex(item, color), transparent: true,
-        blending: THREE.AdditiveBlending, depthWrite: false
-      }));
-      sp.scale.set(68, 19, 1);
-      const phi = Math.acos(2 * Math.random() - 1);
-      const theta = Math.random() * Math.PI * 2;
-      const r = 140 + Math.random() * 130;
-      sp.position.set(r * Math.sin(phi) * Math.cos(theta), r * Math.cos(phi), r * Math.sin(phi) * Math.sin(theta));
-      sp.userData = {
-        phi, theta, r,
-        speed: 0.0004 + Math.random() * 0.0008,
-        phase: Math.random() * Math.PI * 2,
-        toastText: item.text,
-        icon: item.icon,
-        baseScale: new THREE.Vector3(68, 19, 1)
-      };
-      phraseGroup.add(sp);
-    });
-  });
-
-  // ═════════════════════════════════════════════════════════
-  //  9. STICKERS Y FLORES ORBITALES HD
-  // ═════════════════════════════════════════════════════════
-  function createFlowerTexture(type) {
-    const cv = document.createElement('canvas'); cv.width = cv.height = 256;
-    const ctx = cv.getContext('2d');
-    const cx = 128, cy = 128;
-    ctx.clearRect(0, 0, 256, 256);
-
-    if (type === 'sunflower') {
-      const petals = 16;
-      for (let i = 0; i < petals; i++) {
-        const a = (i / petals) * Math.PI * 2;
-        ctx.save(); ctx.translate(cx, cy); ctx.rotate(a);
-        const g = ctx.createLinearGradient(0, 0, 0, -110);
-        g.addColorStop(0, '#E65100'); g.addColorStop(0.35, '#FFB300'); g.addColorStop(1, '#FFF59D');
-        ctx.fillStyle = g; ctx.beginPath();
-        ctx.moveTo(0, -32); ctx.quadraticCurveTo(20, -70, 0, -110); ctx.quadraticCurveTo(-20, -70, 0, -32); ctx.fill();
-        ctx.restore();
-      }
-      for (let i = 0; i < petals; i++) {
-        const a = (i / petals) * Math.PI * 2 + Math.PI / petals;
-        ctx.save(); ctx.translate(cx, cy); ctx.rotate(a);
-        ctx.fillStyle = '#FFC107'; ctx.beginPath();
-        ctx.moveTo(0, -28); ctx.quadraticCurveTo(14, -60, 0, -92); ctx.quadraticCurveTo(-14, -60, 0, -28); ctx.fill();
-        ctx.restore();
-      }
-      const cg = ctx.createRadialGradient(cx, cy, 6, cx, cy, 40);
-      cg.addColorStop(0, '#261303'); cg.addColorStop(0.7, '#422006'); cg.addColorStop(0.95, '#8D4D0A'); cg.addColorStop(1, '#FFB300');
-      ctx.fillStyle = cg; ctx.beginPath(); ctx.arc(cx, cy, 40, 0, Math.PI * 2); ctx.fill();
-    } else if (type === 'sakura') {
-      // Flor Haru (Primavera)
-      const petals = 5;
-      for (let i = 0; i < petals; i++) {
-        const a = (i / petals) * Math.PI * 2;
-        ctx.save(); ctx.translate(cx, cy); ctx.rotate(a);
-        const g = ctx.createLinearGradient(0, 0, 0, -100);
-        g.addColorStop(0, '#FFE082'); g.addColorStop(0.6, '#FFCA28'); g.addColorStop(1, '#FFF9C4');
-        ctx.fillStyle = g; ctx.beginPath();
-        ctx.moveTo(0, -20);
-        ctx.bezierCurveTo(35, -50, 25, -95, 0, -85);
-        ctx.bezierCurveTo(-25, -95, -35, -50, 0, -20);
-        ctx.fill();
-        ctx.restore();
-      }
-      ctx.fillStyle = '#E65100'; ctx.beginPath(); ctx.arc(cx, cy, 16, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#FFD700'; ctx.beginPath(); ctx.arc(cx, cy, 8, 0, Math.PI * 2); ctx.fill();
-    } else if (type === 'kawaii') {
-      const petals = 12;
-      for (let i = 0; i < petals; i++) {
-        const a = (i / petals) * Math.PI * 2;
-        ctx.save(); ctx.translate(cx, cy); ctx.rotate(a);
-        ctx.fillStyle = '#FFD54F'; ctx.beginPath(); ctx.arc(0, -72, 26, 0, Math.PI * 2); ctx.fill();
-        ctx.restore();
-      }
-      const cg = ctx.createRadialGradient(cx, cy, 10, cx, cy, 54);
-      cg.addColorStop(0, '#FFA726'); cg.addColorStop(1, '#FB8C00');
-      ctx.fillStyle = cg; ctx.beginPath(); ctx.arc(cx, cy, 54, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = '#3E2723'; ctx.lineWidth = 4.5; ctx.lineCap = 'round';
-      ctx.beginPath(); ctx.arc(cx - 20, cy - 6, 11, Math.PI, 0, false); ctx.stroke();
-      ctx.beginPath(); ctx.arc(cx + 20, cy - 6, 11, Math.PI, 0, false); ctx.stroke();
-      ctx.beginPath(); ctx.arc(cx, cy + 8, 13, 0.1 * Math.PI, 0.9 * Math.PI, false); ctx.stroke();
-      ctx.fillStyle = 'rgba(255, 64, 129, 0.6)';
-      ctx.beginPath(); ctx.arc(cx - 32, cy + 9, 8.5, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.arc(cx + 32, cy + 9, 8.5, 0, Math.PI * 2); ctx.fill();
-    } else if (type === 'butterfly') {
-      const g = ctx.createRadialGradient(cx, cy, 10, cx, cy, 95);
-      g.addColorStop(0, '#FFF59D'); g.addColorStop(0.5, '#FFD54F'); g.addColorStop(1, '#FF8F00');
-      ctx.fillStyle = g;
-      ctx.beginPath(); ctx.ellipse(cx - 45, cy - 35, 42, 28, -Math.PI / 6, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.ellipse(cx + 45, cy - 35, 42, 28, Math.PI / 6, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.ellipse(cx - 32, cy + 25, 28, 20, Math.PI / 8, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.ellipse(cx + 32, cy + 25, 28, 20, -Math.PI / 8, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#4E342E'; ctx.beginPath(); ctx.ellipse(cx, cy, 7.5, 36, 0, 0, Math.PI * 2); ctx.fill();
-    } else if (type === 'hotwheel') {
-      // Hot Wheels car 🚗
-      const carg = ctx.createLinearGradient(30, 90, 226, 160);
-      carg.addColorStop(0, '#FF3333'); carg.addColorStop(1, '#BB0000');
-      ctx.fillStyle = carg;
-      ctx.beginPath(); ctx.roundRect(30, 100, 196, 58, 14); ctx.fill();
-      ctx.fillStyle = '#880000';
-      ctx.beginPath(); ctx.roundRect(66, 68, 124, 40, 10); ctx.fill();
-      ctx.fillStyle = 'rgba(150,220,255,0.72)';
-      ctx.beginPath(); ctx.roundRect(71, 72, 48, 29, 6); ctx.fill();
-      ctx.beginPath(); ctx.roundRect(137, 72, 48, 29, 6); ctx.fill();
-      ctx.fillStyle = '#1A1A1A';
-      ctx.beginPath(); ctx.arc(76, 160, 29, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.arc(180, 160, 29, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#FFD700';
-      ctx.beginPath(); ctx.arc(76, 160, 15, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.arc(180, 160, 15, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#333';
-      ctx.beginPath(); ctx.arc(76, 160, 7, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.arc(180, 160, 7, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#FF8C00';
-      for (let fi = 0; fi < 3; fi++) {
-        ctx.beginPath();
-        ctx.moveTo(33 + fi * 18, 108);
-        ctx.quadraticCurveTo(26 + fi * 18, 86, 42 + fi * 18, 106);
-        ctx.fill();
-      }
-    } else if (type === 'puppy') {
-      // Cute puppy face 🐶
-      const headg = ctx.createRadialGradient(cx, cy, 8, cx, cy, 88);
-      headg.addColorStop(0, '#E8A96A'); headg.addColorStop(1, '#9B5E2A');
-      ctx.fillStyle = headg;
-      ctx.beginPath(); ctx.arc(cx, cy + 5, 88, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#7A4520';
-      ctx.beginPath(); ctx.ellipse(cx - 68, cy - 45, 26, 44, -0.35, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.ellipse(cx + 68, cy - 45, 26, 44, 0.35, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#F2C48A';
-      ctx.beginPath(); ctx.ellipse(cx, cy + 32, 48, 36, 0, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#2C1A0E';
-      ctx.beginPath(); ctx.arc(cx - 28, cy - 6, 15, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.arc(cx + 28, cy - 6, 15, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#fff';
-      ctx.beginPath(); ctx.arc(cx - 22, cy - 12, 5, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.arc(cx + 34, cy - 12, 5, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#3D1A10';
-      ctx.beginPath(); ctx.ellipse(cx, cy + 20, 15, 10, 0, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = '#3D1A10'; ctx.lineWidth = 4; ctx.lineCap = 'round';
-      ctx.beginPath(); ctx.moveTo(cx, cy + 30); ctx.quadraticCurveTo(cx - 20, cy + 48, cx - 30, cy + 40); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(cx, cy + 30); ctx.quadraticCurveTo(cx + 20, cy + 48, cx + 30, cy + 40); ctx.stroke();
-      ctx.fillStyle = 'rgba(255,100,130,0.5)';
-      ctx.beginPath(); ctx.arc(cx - 52, cy + 30, 18, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.arc(cx + 52, cy + 30, 18, 0, Math.PI * 2); ctx.fill();
-    } else if (type === 'chicken') {
-      // Fried chicken 🍗
-      const ckg = ctx.createRadialGradient(cx - 8, cy - 30, 8, cx, cy - 20, 70);
-      ckg.addColorStop(0, '#D2691E'); ckg.addColorStop(0.5, '#A0522D'); ckg.addColorStop(1, '#6B3A1F');
-      ctx.fillStyle = ckg;
-      ctx.beginPath(); ctx.ellipse(cx, cy - 20, 65, 78, 0, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#FFD700';
-      for (let ci = 0; ci < 6; ci++) {
-        const ca = (ci / 6) * Math.PI * 2;
-        ctx.beginPath(); ctx.arc(cx + Math.cos(ca) * 42, cy - 20 + Math.sin(ca) * 48, 10, 0, Math.PI * 2); ctx.fill();
-      }
-      ctx.fillStyle = '#F5E8C8';
-      ctx.beginPath(); ctx.roundRect(cx - 9, cy + 55, 18, 48, 9); ctx.fill();
-      ctx.beginPath(); ctx.arc(cx, cy + 55, 12, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.arc(cx, cy + 103, 15, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = 'rgba(255,255,255,0.5)'; ctx.lineWidth = 3; ctx.lineCap = 'round';
-      ctx.beginPath(); ctx.moveTo(cx - 15, cy - 99); ctx.quadraticCurveTo(cx - 28, cy - 120, cx - 15, cy - 140); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(cx + 15, cy - 99); ctx.quadraticCurveTo(cx + 28, cy - 120, cx + 15, cy - 140); ctx.stroke();
-    } else if (type === 'controller') {
-      // Game controller 🎮 (Rocket League vibe)
-      const ctg = ctx.createLinearGradient(cx - 88, cy - 44, cx + 88, cy + 60);
-      ctg.addColorStop(0, '#37474F'); ctg.addColorStop(1, '#1C2D38');
-      ctx.fillStyle = ctg;
-      ctx.beginPath(); ctx.roundRect(cx - 90, cy - 44, 180, 96, 22); ctx.fill();
-      ctx.beginPath(); ctx.ellipse(cx - 58, cy + 60, 30, 40, -0.2, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.ellipse(cx + 58, cy + 60, 30, 40, 0.2, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#546E7A';
-      ctx.fillRect(cx - 68, cy - 16, 11, 36); ctx.fillRect(cx - 79, cy - 6, 33, 16);
-      const bColors = ['#F44336', '#4CAF50', '#2196F3', '#FFD700'];
-      const bPos = [{x:cx+52,y:cy-20},{x:cx+68,y:cy-6},{x:cx+52,y:cy+8},{x:cx+36,y:cy-6}];
-      bPos.forEach((bp, bi) => {
-        ctx.fillStyle = bColors[bi];
-        ctx.beginPath(); ctx.arc(bp.x, bp.y, 11, 0, Math.PI * 2); ctx.fill();
-      });
-      ctx.fillStyle = '#FF6B35';
-      ctx.beginPath(); ctx.arc(cx, cy, 18, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#fff'; ctx.font = 'bold 14px sans-serif';
-      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.fillText('RL', cx, cy);
-    } else if (type === 'anime') {
-      // Anime star / 春 aesthetic 🎌
-      for (let ai = 0; ai < 8; ai++) {
-        const a1 = (ai / 8) * Math.PI * 2 - Math.PI / 2;
-        const a2 = a1 + Math.PI / 8;
-        ctx.fillStyle = ai % 2 === 0 ? '#FFD700' : '#FF69B4';
-        ctx.beginPath();
-        ctx.moveTo(cx, cy);
-        ctx.lineTo(cx + Math.cos(a1) * 108, cy + Math.sin(a1) * 108);
-        ctx.lineTo(cx + Math.cos(a2) * 44, cy + Math.sin(a2) * 44);
-        ctx.closePath(); ctx.fill();
-      }
-      const ag2 = ctx.createRadialGradient(cx, cy, 5, cx, cy, 38);
-      ag2.addColorStop(0, '#FFF9C4'); ag2.addColorStop(1, '#FFB300');
-      ctx.fillStyle = ag2;
-      ctx.beginPath(); ctx.arc(cx, cy, 38, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#7B1FA2'; ctx.font = 'bold 28px serif';
-      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.fillText('春', cx, cy);
-    } else {
-      // Corazón dorado
-      const g = ctx.createLinearGradient(cx, cy - 60, cx, cy + 70);
-      g.addColorStop(0, '#FFF176'); g.addColorStop(0.5, '#FFD700'); g.addColorStop(1, '#FF8F00');
-      ctx.fillStyle = g; ctx.beginPath();
-      ctx.moveTo(cx, cy + 68);
-      ctx.bezierCurveTo(cx - 78, cy + 10, cx - 78, cy - 52, cx, cy - 32);
-      ctx.bezierCurveTo(cx + 78, cy - 52, cx + 78, cy + 10, cx, cy + 68);
-      ctx.fill();
-    }
-    return new THREE.CanvasTexture(cv);
-  }
-
-  const flowerTextures = {
-    sunflower:  createFlowerTexture('sunflower'),
-    sakura:     createFlowerTexture('sakura'),
-    kawaii:     createFlowerTexture('kawaii'),
-    butterfly:  createFlowerTexture('butterfly'),
-    heart:      createFlowerTexture('heart'),
-    hotwheel:   createFlowerTexture('hotwheel'),
-    puppy:      createFlowerTexture('puppy'),
-    chicken:    createFlowerTexture('chicken'),
-    controller: createFlowerTexture('controller'),
-    anime:      createFlowerTexture('anime')
-  };
-
-  const FLOWER_VARIETIES = [
-    { type: 'hotwheel',   name: '¡La reina de los Hot Wheels del universo!', icon: '🚗', size: 34 },
-    { type: 'puppy',      name: '¡Los perritos la aman porque es amor puro!', icon: '🐶', size: 32 },
-    { type: 'chicken',    name: '¡Pollo frito para la persona más especial!', icon: '🍗', size: 30 },
-    { type: 'controller', name: '¡Gamer de corazón, campeona de Rocket League!', icon: '🎮', size: 34 },
-    { type: 'anime',      name: '¡El anime la entiende como nadie más!', icon: '🎌', size: 30 },
-    { type: 'sunflower',  name: 'Haru: siempre buscando la luz, como el girasol', icon: '🌻', size: 30 },
-    { type: 'kawaii',     name: '¡Su sonrisa alegra todo a su paso!', icon: '🌸', size: 30 },
-    { type: 'heart',      name: '¡Gracias por ser de las personas que de verdad se interesan!', icon: '💛', size: 28 }
-  ];
-
-  const flowerGroup = new THREE.Group();
-  galaxyGroup.add(flowerGroup);
-
-  const TOTAL_STICKERS = 25;
-  for (let i = 0; i < TOTAL_STICKERS; i++) {
-    const item = FLOWER_VARIETIES[i % FLOWER_VARIETIES.length];
-    const sp = new THREE.Sprite(new THREE.SpriteMaterial({
-      map: flowerTextures[item.type], transparent: true, depthWrite: false
-    }));
-    const sz = item.size + (Math.random() - 0.5) * 6;
-    sp.scale.set(sz, sz, 1);
-    const phi = Math.acos(2 * Math.random() - 1);
-    const theta = Math.random() * Math.PI * 2;
-    const r = 120 + Math.random() * 160;
-    sp.position.set(r * Math.sin(phi) * Math.cos(theta), r * Math.cos(phi), r * Math.sin(phi) * Math.sin(theta));
-    sp.userData = {
-      phi, theta, r,
-      speed: 0.0005 + Math.random() * 0.0009,
-      phase: Math.random() * Math.PI * 2,
-      toastText: item.name,
-      icon: item.icon,
-      baseScale: new THREE.Vector3(sz, sz, 1)
-    };
-    flowerGroup.add(sp);
-  }
 
   // ═════════════════════════════════════════════════════════
   //  SISTEMA PLANETARIO 3D INTERACTIVO DE HARU (6 MUNDOS)
@@ -2590,7 +2213,8 @@
     
     // Si la tarjeta central principal está abierta, cerrarla
     cardOverlay.classList.remove('visible');
-    reopenBtn.classList.add('show');
+    const pDock = document.getElementById('planet-dock');
+    if (pDock) pDock.classList.add('show');
 
     cameraMode = 'TRANSITIONING';
     focusedPlanetIndex = index;
@@ -2744,10 +2368,23 @@
     }
 
     if (state === 'WARPING') {
-      speed += (58 - speed) * 0.04;
-      streakLength += (150 - streakLength) * 0.04;
-      camera.fov += (88 - camera.fov) * 0.035;
+      speed += (64 - speed) * 0.045;
+      streakLength += (160 - streakLength) * 0.045;
+      camera.fov += (102 - camera.fov) * 0.04;
       camera.updateProjectionMatrix();
+
+      // Rotación en vórtice estelar (efecto túnel relativista)
+      warpLines.rotation.z += 0.022;
+      warpLines.rotation.x = Math.sin(t * 1.8) * 0.05;
+
+      // Micro-temblor de aceleración a alta velocidad
+      if (speed > 25) {
+        camera.position.x = (Math.random() - 0.5) * 0.45;
+        camera.position.y = (Math.random() - 0.5) * 0.45;
+      } else {
+        camera.position.x = 0;
+        camera.position.y = 0;
+      }
 
       if (performance.now() - warpStartTime > 4200) {
         state = 'SLOWING';
@@ -2755,8 +2392,10 @@
     } else if (state === 'SLOWING') {
       speed += (0.08 - speed) * 0.055;
       streakLength += (0.4 - streakLength) * 0.055;
-      camera.fov += (60 - camera.fov) * 0.045;
+      camera.fov += (60 - camera.fov) * 0.05;
       camera.updateProjectionMatrix();
+      camera.position.x = 0;
+      camera.position.y = 0;
 
       if (speed < 1.3) {
         state = 'TRANSITION';
@@ -2791,8 +2430,7 @@
         document.getElementById('audio-control').classList.add('show');
         const rHint = document.getElementById('rotation-hint');
         if (rHint) rHint.classList.add('show');
-        const pDock = document.getElementById('planet-dock');
-        if (pDock) pDock.classList.add('show');
+        // El dock de mundos se muestra únicamente cuando Haru cierra la carta para explorar
         startCardSparkles();
         playCelestialChime(2);
       }
@@ -2840,7 +2478,7 @@
         }
       });
 
-      // Raycaster: detección de planetas y elementos interactivos
+      // Raycaster ultra-optimizado: detección rápida solo de planetas y constelación
       const isCardOpen = cardOverlay.classList.contains('visible');
       const isSheetOpen = document.getElementById('planet-sheet') && document.getElementById('planet-sheet').classList.contains('show');
 
@@ -2863,39 +2501,20 @@
               hidePlanetTooltip();
             }
 
-            // Comprobar frases flotantes, flores y constelación
-            const interactables = [...phraseGroup.children, ...flowerGroup.children, constHitMesh];
-            const intersects = raycaster.intersectObjects(interactables);
-
-            if (intersects.length > 0) {
-              const hit = intersects[0].object;
+            // Comprobar constelación HARU
+            const constIntersects = raycaster.intersectObjects([constHitMesh]);
+            if (constIntersects.length > 0) {
+              const hit = constIntersects[0].object;
               if (hoveredObj !== hit) {
-                if (hoveredObj && hoveredObj.userData.baseScale) {
-                  hoveredObj.scale.copy(hoveredObj.userData.baseScale);
-                }
                 hoveredObj = hit;
-                if (!hoveredObj.userData.baseScale && hoveredObj.scale) {
-                  hoveredObj.userData.baseScale = hoveredObj.scale.clone();
-                }
                 document.body.style.cursor = 'pointer';
-
-                if (hit.userData.isConstellation) {
-                  const badge = document.getElementById('constellation-badge');
-                  if (badge) badge.classList.add('show');
-                }
-              }
-              if (hoveredObj && hoveredObj.userData.baseScale) {
-                const bs = hoveredObj.userData.baseScale;
-                const pulse = 1.25 + 0.06 * Math.sin(t * 5);
-                hoveredObj.scale.set(bs.x * pulse, bs.y * pulse, bs.z);
+                const badge = document.getElementById('constellation-badge');
+                if (badge) badge.classList.add('show');
               }
             } else {
               if (hoveredObj) {
-                if (hoveredObj.userData.baseScale) hoveredObj.scale.copy(hoveredObj.userData.baseScale);
-                if (hoveredObj.userData.isConstellation) {
-                  const badge = document.getElementById('constellation-badge');
-                  if (badge) badge.classList.remove('show');
-                }
+                const badge = document.getElementById('constellation-badge');
+                if (badge) badge.classList.remove('show');
                 hoveredObj = null;
               }
               if (!dragging) document.body.style.cursor = 'default';
@@ -2921,26 +2540,6 @@
 
       const gp = 1 + 0.05 * Math.sin(t * 0.5);
       if (state === 'GALAXY') glowSprite.scale.set(270 * gp, 270 * gp, 1);
-
-      // Frases orbitando
-      phraseGroup.children.forEach(sp => {
-        sp.userData.theta += sp.userData.speed;
-        const {phi, theta, r, phase} = sp.userData;
-        sp.position.x = r * Math.sin(phi) * Math.cos(theta);
-        sp.position.z = r * Math.sin(phi) * Math.sin(theta);
-        sp.material.opacity = 0.65 + 0.35 * Math.sin(t * 1.4 + phase);
-      });
-
-      // Stickers de flores
-      flowerGroup.children.forEach(sp => {
-        sp.userData.theta += sp.userData.speed;
-        const {phi, theta, r, phase} = sp.userData;
-        sp.position.x = r * Math.sin(phi) * Math.cos(theta);
-        sp.position.z = r * Math.sin(phi) * Math.sin(theta);
-        sp.position.y = r * Math.cos(phi) + Math.sin(t * 1.2 + phase) * 6;
-        sp.material.opacity = 0.82 + 0.18 * Math.sin(t * 1.8 + phase);
-        sp.material.rotation += 0.005;
-      });
 
       // Pétalos 3D flotando orgánicamente
       petals.forEach(sp => {
@@ -3169,7 +2768,7 @@
   }
 
   document.addEventListener('click', e => {
-    if (e.target.closest('#start-screen, #card-overlay, #reopen-btn, #audio-control, #travel-hint, #phrase-toast, #constellation-badge, #planet-sheet, #planet-dock')) return;
+    if (e.target.closest('#start-screen, #card-overlay, #audio-control, #travel-hint, #phrase-toast, #constellation-badge, #planet-sheet, #planet-dock')) return;
 
     if (state === 'GALAXY') {
       raycaster.setFromCamera(mouse, camera);
@@ -3183,15 +2782,21 @@
           spawnBurst(e.clientX, e.clientY);
           return;
         }
-      }
 
-      const interactables = [...phraseGroup.children, ...flowerGroup.children, constHitMesh];
-      const intersects = raycaster.intersectObjects(interactables);
+        // Detección de la Constelación HARU
+        const constIntersects = raycaster.intersectObjects([constHitMesh]);
+        if (constIntersects.length > 0) {
+          showPhraseToast('✨ Constelación Haru: la estrella más brillante de esta galaxia ✨', '🌟');
+          spawnBurst(e.clientX, e.clientY);
+          return;
+        }
 
-      if (intersects.length > 0) {
-        const hit = intersects[0].object;
-        if (hit.userData.toastText) {
-          showPhraseToast(hit.userData.toastText, hit.userData.icon || '🌻');
+        // Clic en el espacio estelar: muestra una frase cósmica sorpresa de Haru
+        if (typeof FRASES_DATA !== 'undefined' && FRASES_DATA.length > 0) {
+          const randomItem = FRASES_DATA[Math.floor(Math.random() * FRASES_DATA.length)];
+          if (randomItem) {
+            showPhraseToast(randomItem.text, randomItem.icon);
+          }
         }
       }
     }
@@ -3251,17 +2856,15 @@
   });
 
   // ═════════════════════════════════════════════════════════
-  //  14. TARJETA GLASSMORPHISM INTERACTIVA Y TABS
+  //  14. TARJETA GLASSMORPHISM INTERACTIVA (CARTA PARA HARU)
   // ═════════════════════════════════════════════════════════
   const cardOverlay = document.getElementById('card-overlay');
-  const reopenBtn   = document.getElementById('reopen-btn');
 
   function updateScrollIndicator() {
-    const activeTab = document.querySelector('.tab-content.active');
+    const cardBody = document.querySelector('.card-body');
     const indicator = document.getElementById('card-scroll-indicator');
-    if (!activeTab || !indicator) return;
-    // Si el contenido excede la altura visible y el usuario aún no llega al final
-    const canScrollMore = (activeTab.scrollHeight - activeTab.clientHeight - activeTab.scrollTop) > 20;
+    if (!cardBody || !indicator) return;
+    const canScrollMore = (cardBody.scrollHeight - cardBody.clientHeight - cardBody.scrollTop) > 20;
     if (canScrollMore) {
       indicator.classList.remove('hidden');
     } else {
@@ -3269,10 +2872,11 @@
     }
   }
 
-  // Detectar scroll dentro de las pestañas de la tarjeta para ocultar el indicador dinámicamente
-  document.querySelectorAll('.tab-content').forEach(tab => {
-    tab.addEventListener('scroll', updateScrollIndicator, {passive: true});
-  });
+  // Detectar scroll dentro de la carta para ocultar el indicador dinámicamente
+  const cardBodyEl = document.querySelector('.card-body');
+  if (cardBodyEl) {
+    cardBodyEl.addEventListener('scroll', updateScrollIndicator, {passive: true});
+  }
 
   window.addEventListener('resize', () => {
     if (cardOverlay && cardOverlay.classList.contains('visible')) {
@@ -3280,38 +2884,21 @@
     }
   });
 
-  document.getElementById('card-close').addEventListener('click', () => {
+  function closeCardAndExplore() {
     cardOverlay.classList.remove('visible');
-    reopenBtn.classList.add('show');
+    const pDock = document.getElementById('planet-dock');
+    if (pDock) pDock.classList.add('show');
     const card = document.getElementById('glass-card');
     if (card) card.style.transform = 'none';
-  });
+    playCelestialChime(3);
+  }
 
-  function reopenCard() {
+  function openLetterCard() {
     cardOverlay.classList.add('visible');
-    reopenBtn.classList.remove('show');
+    const pDock = document.getElementById('planet-dock');
+    if (pDock) pDock.classList.remove('show');
     playCelestialChime(4);
     setTimeout(updateScrollIndicator, 150);
-  }
-
-  function switchCardTab(tabName) {
-    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-
-    const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick').includes(tabName));
-    if (activeBtn) activeBtn.classList.add('active');
-
-    const content = document.getElementById(`tab-${tabName}`);
-    if (content) {
-      content.classList.add('active');
-      content.scrollTop = 0;
-    }
-    playCelestialChime();
-    setTimeout(updateScrollIndicator, 80);
-  }
-
-  function triggerFlowerShowcase(name, meaning) {
-    showPhraseToast(`${name}: ${meaning}`, '🌸');
   }
 
   // ─── TEMAS PARA CADA DESEO GALÁCTICO ───
@@ -3373,7 +2960,8 @@
 
   function dismissWishOverlay() {
     document.getElementById('wish-star-overlay').classList.remove('show');
-    reopenBtn.classList.add('show');
+    const pDock = document.getElementById('planet-dock');
+    if (pDock) pDock.classList.add('show');
   }
 
   let selectedWishText = '¡Que tu comunidad crezca!';
@@ -3442,7 +3030,8 @@
     // Auto-cierre a los 6 segundos
     setTimeout(() => {
       overlay.classList.remove('show');
-      reopenBtn.classList.add('show');
+      const pDock = document.getElementById('planet-dock');
+      if (pDock) pDock.classList.add('show');
       showPhraseToast('¡Deseo liberado hacia las estrellas! ✨ Haru, esto es para ti 💛', theme.emoji);
     }, 6000);
   }
@@ -3475,8 +3064,12 @@
     state = 'WARPING';
     warpStartTime = performance.now();
     const hint = document.getElementById('travel-hint');
-    if (hint) hint.classList.add('show');
+    if (hint) {
+      hint.textContent = 'Viajando a la velocidad de la luz hacia tu Galaxia... 🚀✨';
+      hint.classList.add('show');
+    }
 
+    playWarpDriveSound();
     playCelestialChime(0);
     setTimeout(() => playCelestialChime(3), 600);
   }
