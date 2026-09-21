@@ -188,7 +188,11 @@
     #card-overlay {
       position: fixed; inset: 0; z-index: 20;
       display: flex; align-items: center; justify-content: center;
-      padding: 16px; pointer-events: none;
+      padding: clamp(10px, 2vh, 20px) 14px;
+      pointer-events: none;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
       opacity: 0; transform: scale(0.88) translateY(20px);
       transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
       perspective: 1000px;
@@ -199,7 +203,7 @@
     }
 
     .glass-card {
-      background: rgba(12, 9, 3, 0.72);
+      background: rgba(12, 9, 3, 0.78);
       backdrop-filter: blur(28px);
       -webkit-backdrop-filter: blur(28px);
       border: 1px solid rgba(255, 215, 0, 0.28);
@@ -207,14 +211,21 @@
         0 0 0 1px rgba(255, 215, 0, 0.08) inset,
         0 0 65px rgba(255, 215, 0, 0.16),
         0 35px 90px rgba(0, 0, 0, 0.85);
-      border-radius: 30px;
-      padding: clamp(26px, 5vw, 42px) clamp(20px, 4.5vw, 36px);
-      max-width: 500px; width: 100%;
+      border-radius: 28px;
+      padding: 22px 20px 16px 20px;
+      max-width: 500px; width: min(94vw, 490px);
+      max-height: min(86vh, 640px);
+      margin: auto;
+      display: flex;
+      flex-direction: column;
       text-align: center;
-      position: relative; overflow: hidden;
+      position: relative;
+      overflow: hidden;
       transform-style: preserve-3d;
       will-change: transform;
       transition: transform 0.15s ease-out;
+      user-select: text;
+      -webkit-user-select: text;
     }
 
     /* Brillos en las esquinas */
@@ -235,38 +246,42 @@
 
     /* Botón cerrar tarjeta */
     .card-close {
-      position: absolute; top: 16px; right: 16px;
+      position: absolute; top: 15px; right: 15px;
       width: 32px; height: 32px;
-      background: rgba(255, 215, 0, 0.09);
-      border: 1px solid rgba(255, 215, 0, 0.22);
-      border-radius: 50%; color: rgba(255, 215, 0, 0.75);
+      background: rgba(255, 215, 0, 0.1);
+      border: 1px solid rgba(255, 215, 0, 0.25);
+      border-radius: 50%; color: rgba(255, 215, 0, 0.8);
       font-size: 0.95rem; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       transition: all 0.25s ease;
       z-index: 10;
     }
     .card-close:hover {
-      background: rgba(255, 215, 0, 0.26);
+      background: rgba(255, 215, 0, 0.28);
       color: #FFD700; transform: scale(1.1) rotate(90deg);
     }
 
-    /* Pestañas de navegación de la tarjeta */
+    /* Pestañas de navegación de la tarjeta (fijas arriba en la tarjeta) */
     .card-tabs {
       display: flex; align-items: center; justify-content: center;
-      gap: 6px; margin-bottom: 20px;
+      gap: 6px; margin: 0 auto 14px auto;
+      max-width: calc(100% - 46px);
       background: rgba(255, 215, 0, 0.05);
       padding: 4px; border-radius: 40px;
       border: 1px solid rgba(255, 215, 0, 0.15);
+      flex-shrink: 0;
+      z-index: 5;
     }
     .tab-btn {
       background: transparent; border: none;
       color: rgba(255, 235, 180, 0.7);
-      padding: 7px 16px;
+      padding: 7px 15px;
       font-family: 'Outfit', sans-serif;
       font-size: 0.82rem; font-weight: 600;
       border-radius: 30px; cursor: pointer;
       transition: all 0.25s ease;
       display: flex; align-items: center; gap: 5px;
+      white-space: nowrap;
     }
     .tab-btn.active {
       background: linear-gradient(135deg, rgba(255, 215, 0, 0.35), rgba(255, 152, 0, 0.3));
@@ -275,26 +290,60 @@
     }
     .tab-btn:hover:not(.active) { color: #FFFDE7; background: rgba(255, 215, 0, 0.1); }
 
-    .tab-content { display: none; }
-    .tab-content.active { display: block; animation: tabFadeIn 0.4s ease forwards; }
+    /* Área con scroll interno suave y hermoso para cada pestaña */
+    .tab-content {
+      display: none;
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      padding: 2px 6px 12px 6px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 215, 0, 0.4) rgba(255, 215, 0, 0.04);
+    }
+    .tab-content.active {
+      display: block;
+      animation: tabFadeIn 0.35s ease forwards;
+    }
     @keyframes tabFadeIn {
-      from { opacity: 0; transform: translateY(8px); }
+      from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Scrollbar personalizada dorada para navegadores Webkit */
+    .tab-content::-webkit-scrollbar {
+      width: 6px;
+    }
+    .tab-content::-webkit-scrollbar-track {
+      background: rgba(255, 215, 0, 0.04);
+      border-radius: 10px;
+      margin: 4px 0;
+    }
+    .tab-content::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, rgba(255, 215, 0, 0.5), rgba(255, 152, 0, 0.5));
+      border-radius: 10px;
+      box-shadow: 0 0 6px rgba(255, 215, 0, 0.25);
+    }
+    .tab-content::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, #FFD700, #FF9800);
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
     }
 
     .card-top-tag {
       font-size: 0.72rem; font-weight: 700;
-      letter-spacing: 0.24em; text-transform: uppercase;
-      color: rgba(255, 225, 120, 0.75);
-      margin-bottom: 8px;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(255, 225, 120, 0.8);
+      margin-bottom: 5px;
     }
 
     .card-title {
       font-family: 'Dancing Script', cursive;
-      font-size: clamp(2.4rem, 6.5vw, 3.4rem);
+      font-size: clamp(2rem, 5.2vw, 2.7rem);
       color: #FFD700;
       text-shadow: 0 0 22px rgba(255, 215, 0, 0.6), 0 0 45px rgba(255, 140, 0, 0.3);
-      line-height: 1.1; margin-bottom: 6px;
+      line-height: 1.15; margin-bottom: 4px;
       animation: cardTitleGlow 3.5s ease-in-out infinite;
     }
     @keyframes cardTitleGlow {
@@ -303,15 +352,15 @@
     }
 
     .card-date {
-      font-size: 0.8rem; letter-spacing: 0.14em;
+      font-size: 0.78rem; letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(255, 215, 0, 0.6);
-      margin-bottom: 18px;
+      color: rgba(255, 215, 0, 0.65);
+      margin-bottom: 12px;
     }
 
     .card-stars-divider {
-      display: flex; align-items: center; gap: 10px;
-      justify-content: center; margin-bottom: 20px;
+      display: flex; align-items: center; gap: 8px;
+      justify-content: center; margin-bottom: 14px;
     }
     .card-stars-divider span:not(.s-dot) {
       flex: 1; height: 1px;
@@ -322,77 +371,142 @@
     .card-message {
       font-family: 'Playfair Display', serif;
       font-style: italic;
-      font-size: clamp(0.95rem, 2.6vw, 1.08rem);
-      color: rgba(255, 248, 225, 0.92);
-      line-height: 1.95; margin-bottom: 24px;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+      font-size: clamp(0.88rem, 2.2vw, 0.98rem);
+      color: rgba(255, 248, 225, 0.94);
+      line-height: 1.72; margin-bottom: 20px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
     }
     .card-message strong { color: #FFE082; font-style: normal; }
 
     .card-signature {
       font-family: 'Dancing Script', cursive;
-      font-size: clamp(1.25rem, 3.8vw, 1.65rem);
+      font-size: clamp(1.18rem, 3.2vw, 1.45rem);
       color: #FFE566; opacity: 0.95;
+      padding-bottom: 6px;
+    }
+
+    /* Indicador visual de scroll */
+    .card-scroll-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding-top: 6px;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 215, 0, 0.65);
+      flex-shrink: 0;
+      animation: hintBounce 2s infinite ease-in-out;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    @keyframes hintBounce {
+      0%, 100% { transform: translateY(0); opacity: 0.55; }
+      50% { transform: translateY(3px); opacity: 0.95; }
+    }
+    .card-scroll-indicator.hidden {
+      opacity: 0;
+      display: none;
     }
 
     /* Pestaña 2: Jardín de Haru */
     .flower-grid {
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 12px; margin-top: 10px; text-align: left;
+      gap: 10px; margin-top: 8px; text-align: left;
     }
     .flower-item {
       background: rgba(255, 215, 0, 0.06);
       border: 1px solid rgba(255, 215, 0, 0.18);
-      border-radius: 16px; padding: 12px;
+      border-radius: 14px; padding: 10px 12px;
       transition: transform 0.2s, background 0.2s;
       cursor: pointer;
     }
     .flower-item:hover {
-      transform: translateY(-3px);
+      transform: translateY(-2px);
       background: rgba(255, 215, 0, 0.12);
       border-color: rgba(255, 215, 0, 0.4);
     }
-    .f-icon { font-size: 1.8rem; margin-bottom: 4px; }
-    .f-name { font-size: 0.9rem; font-weight: 700; color: #FFE082; margin-bottom: 3px; }
-    .f-desc { font-size: 0.76rem; color: rgba(255, 255, 255, 0.75); line-height: 1.4; }
+    .f-icon { font-size: 1.6rem; margin-bottom: 3px; }
+    .f-name { font-size: 0.88rem; font-weight: 700; color: #FFE082; margin-bottom: 2px; }
+    .f-desc { font-size: 0.74rem; color: rgba(255, 255, 255, 0.75); line-height: 1.35; }
 
     /* Pestaña 3: Deseo Galáctico */
     .wish-box {
       padding: 10px 0;
     }
     .wish-intro {
-      font-size: 0.9rem; color: rgba(255, 245, 210, 0.85);
-      line-height: 1.6; margin-bottom: 16px;
+      font-size: 0.88rem; color: rgba(255, 245, 210, 0.85);
+      line-height: 1.55; margin-bottom: 14px;
     }
     .wish-chips {
       display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
     .wish-chip {
       background: rgba(255, 215, 0, 0.08);
       border: 1px solid rgba(255, 215, 0, 0.2);
-      border-radius: 20px; padding: 6px 14px;
-      font-size: 0.82rem; color: #FFFDE7;
-      cursor: pointer; transition: all 0.2s ease;
+      border-radius: 20px; padding: 6px 13px;
+      font-size: 0.8rem; color: #FFFDE7;
+      cursor: pointer; transition: all 0.25s ease;
     }
     .wish-chip:hover, .wish-chip.selected {
       background: rgba(255, 215, 0, 0.28);
-      border-color: #FFD700; transform: scale(1.05);
+      border-color: #FFD700; transform: scale(1.04);
       box-shadow: 0 0 14px rgba(255, 215, 0, 0.3);
     }
     .wish-send-btn {
       width: 100%;
-      padding: 13px;
+      padding: 12px;
       background: linear-gradient(135deg, #FFD700, #FF9800);
       border: none; border-radius: 50px;
-      color: #1a0e00; font-weight: 700; font-size: 0.95rem;
+      color: #1a0e00; font-weight: 700; font-size: 0.92rem;
       cursor: pointer; transition: all 0.25s ease;
-      box-shadow: 0 0 25px rgba(255, 215, 0, 0.45);
+      box-shadow: 0 0 22px rgba(255, 215, 0, 0.4);
       display: flex; align-items: center; justify-content: center; gap: 8px;
     }
     .wish-send-btn:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 45px rgba(255, 215, 0, 0.7);
+      transform: scale(1.02);
+      box-shadow: 0 0 35px rgba(255, 215, 0, 0.65);
+    }
+
+    /* Media queries adaptables */
+    @media (max-height: 720px) {
+      .glass-card {
+        max-height: calc(100vh - 28px);
+        padding: 16px 16px 12px 16px;
+      }
+      .card-title {
+        font-size: 2rem;
+      }
+      .card-tabs {
+        margin-bottom: 10px;
+      }
+      .card-message {
+        font-size: 0.86rem;
+        line-height: 1.6;
+        margin-bottom: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .glass-card {
+        width: calc(100vw - 20px);
+        padding: 16px 14px 12px 14px;
+        border-radius: 22px;
+      }
+      .card-tabs {
+        gap: 4px;
+        margin-bottom: 10px;
+      }
+      .tab-btn {
+        padding: 6px 11px;
+        font-size: 0.76rem;
+      }
+      .flower-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
     }
 
     /* Destellos de tarjeta */
@@ -873,6 +987,12 @@
           <span>¡Liberar Estrella de Deseo!</span>
           <span>✦</span>
         </button>
+      </div>
+
+      <!-- Indicador sutil de scroll para saber que se puede bajar -->
+      <div class="card-scroll-indicator" id="card-scroll-indicator">
+        <span>desliza hacia abajo</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </div>
     </div>
   </div>
@@ -1781,6 +1901,7 @@
         warpLines.visible = false;
         glowSprite.scale.set(270, 270, 1);
         cardOverlay.classList.add('visible');
+        setTimeout(updateScrollIndicator, 350);
         document.getElementById('audio-control').classList.add('show');
         const rHint = document.getElementById('rotation-hint');
         if (rHint) rHint.classList.add('show');
@@ -1988,6 +2109,9 @@
   }
 
   function onDown(e) {
+    if (e.target && (e.target.closest('#glass-card') || e.target.closest('#wish-star-overlay') || e.target.closest('#audio-control') || e.target.closest('#phrase-toast') || e.target.closest('#reopen-btn'))) {
+      return;
+    }
     if (state !== 'GALAXY') return;
     dragging = true;
     const t = e.touches ? e.touches[0] : e;
@@ -1999,14 +2123,17 @@
     mouse.x = (t.clientX / innerWidth) * 2 - 1;
     mouse.y = -(t.clientY / innerHeight) * 2 + 1;
 
-    // Inclinación 3D de la tarjeta Glassmorphism si está abierta
+    // Inclinación 3D suave de la tarjeta Glassmorphism si está abierta
     if (cardOverlay.classList.contains('visible') && !isMobile) {
       const card = document.getElementById('glass-card');
       if (card) {
+        const isHoveringCard = e.target && e.target.closest('#glass-card');
         const cx = innerWidth / 2, cy = innerHeight / 2;
         const dx = (t.clientX - cx) / cx;
         const dy = (t.clientY - cy) / cy;
-        card.style.transform = `rotateY(${dx * 12}deg) rotateX(${-dy * 10}deg)`;
+        // Inclinación muy sutil al pasar sobre la tarjeta para máxima comodidad de lectura y scroll
+        const tiltFactor = isHoveringCard ? 3 : 7;
+        card.style.transform = `rotateY(${dx * tiltFactor}deg) rotateX(${-dy * (tiltFactor * 0.8)}deg)`;
       }
     }
 
@@ -2039,6 +2166,10 @@
   addEventListener('touchend', onUp, {passive: true});
 
   addEventListener('wheel', e => {
+    // Si el usuario hace scroll dentro de la tarjeta o un overlay, no hacemos zoom en la galaxia
+    if (e.target && (e.target.closest('#glass-card') || e.target.closest('#wish-star-overlay'))) {
+      return;
+    }
     if (state === 'GALAXY') {
       targetDist = Math.max(160, Math.min(600, targetDist + e.deltaY * 0.25));
     }
@@ -2046,6 +2177,9 @@
 
   let pinchDist = 0;
   addEventListener('touchmove', e => {
+    if (e.target && (e.target.closest('#glass-card') || e.target.closest('#wish-star-overlay'))) {
+      return; // Permite el scroll táctil nativo dentro de la tarjeta
+    }
     if (state !== 'GALAXY') return;
     if (e.touches && e.touches.length === 2) {
       e.preventDefault();
@@ -2159,6 +2293,30 @@
   const cardOverlay = document.getElementById('card-overlay');
   const reopenBtn   = document.getElementById('reopen-btn');
 
+  function updateScrollIndicator() {
+    const activeTab = document.querySelector('.tab-content.active');
+    const indicator = document.getElementById('card-scroll-indicator');
+    if (!activeTab || !indicator) return;
+    // Si el contenido excede la altura visible y el usuario aún no llega al final
+    const canScrollMore = (activeTab.scrollHeight - activeTab.clientHeight - activeTab.scrollTop) > 20;
+    if (canScrollMore) {
+      indicator.classList.remove('hidden');
+    } else {
+      indicator.classList.add('hidden');
+    }
+  }
+
+  // Detectar scroll dentro de las pestañas de la tarjeta para ocultar el indicador dinámicamente
+  document.querySelectorAll('.tab-content').forEach(tab => {
+    tab.addEventListener('scroll', updateScrollIndicator, {passive: true});
+  });
+
+  window.addEventListener('resize', () => {
+    if (cardOverlay && cardOverlay.classList.contains('visible')) {
+      updateScrollIndicator();
+    }
+  });
+
   document.getElementById('card-close').addEventListener('click', () => {
     cardOverlay.classList.remove('visible');
     reopenBtn.classList.add('show');
@@ -2170,6 +2328,7 @@
     cardOverlay.classList.add('visible');
     reopenBtn.classList.remove('show');
     playCelestialChime(4);
+    setTimeout(updateScrollIndicator, 150);
   }
 
   function switchCardTab(tabName) {
@@ -2180,8 +2339,12 @@
     if (activeBtn) activeBtn.classList.add('active');
 
     const content = document.getElementById(`tab-${tabName}`);
-    if (content) content.classList.add('active');
+    if (content) {
+      content.classList.add('active');
+      content.scrollTop = 0;
+    }
     playCelestialChime();
+    setTimeout(updateScrollIndicator, 80);
   }
 
   function triggerFlowerShowcase(name, meaning) {
