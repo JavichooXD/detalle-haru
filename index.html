@@ -610,6 +610,110 @@
     #constellation-badge.show {
       opacity: 1; transform: translateX(-50%) translateY(0);
     }
+
+    /* ═══════════════════════════════════════════════
+       WISH STAR EPIC OVERLAY — TRANSFORMACIÓN GALÁCTICA
+    ═══════════════════════════════════════════════ */
+    #wish-star-overlay {
+      position: fixed; inset: 0; z-index: 300;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #wish-star-overlay.show { opacity: 1; pointer-events: auto; }
+
+    #wso-bg {
+      position: absolute; inset: 0;
+      transition: background 0.9s ease;
+    }
+
+    #wso-ripple {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .wso-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.32);
+      animation: wsoRingExpand 2.8s ease-out infinite;
+    }
+    .wso-ring:nth-child(1) { width: 120px; height: 120px; animation-delay: 0s; }
+    .wso-ring:nth-child(2) { width: 120px; height: 120px; animation-delay: 0.7s; }
+    .wso-ring:nth-child(3) { width: 120px; height: 120px; animation-delay: 1.4s; }
+    .wso-ring:nth-child(4) { width: 120px; height: 120px; animation-delay: 2.1s; }
+    @keyframes wsoRingExpand {
+      0%   { transform: scale(0.3); opacity: 0.9; }
+      100% { transform: scale(10); opacity: 0; }
+    }
+
+    #wso-content {
+      position: relative; z-index: 2;
+      text-align: center;
+      padding: 24px 36px;
+      animation: wsoContentIn 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes wsoContentIn {
+      0%   { transform: scale(0.35) translateY(50px); opacity: 0; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+
+    #wso-emoji {
+      font-size: clamp(4.5rem, 18vw, 9rem);
+      display: block; margin-bottom: 16px;
+      filter: drop-shadow(0 0 40px rgba(255,255,255,0.9)) drop-shadow(0 0 80px rgba(255,255,255,0.5));
+      animation: wsoEmojiFloat 2.2s ease-in-out infinite;
+    }
+    @keyframes wsoEmojiFloat {
+      0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+      50%      { transform: translateY(-14px) scale(1.12) rotate(4deg); }
+    }
+
+    #wso-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(1.9rem, 6.5vw, 4rem);
+      color: #fff;
+      text-shadow: 0 0 30px rgba(255,255,255,0.95), 0 0 65px rgba(255,255,255,0.55);
+      line-height: 1.2; margin-bottom: 12px;
+    }
+
+    #wso-subtitle {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(0.9rem, 3vw, 1.3rem);
+      color: rgba(255,255,255,0.93);
+      font-weight: 300; letter-spacing: 0.04em;
+      text-shadow: 0 2px 14px rgba(0,0,0,0.6);
+      margin-bottom: 26px;
+    }
+
+    #wso-dismiss {
+      padding: 11px 32px;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.45);
+      border-radius: 40px;
+      color: #fff; font-family: 'Outfit', sans-serif;
+      font-size: 0.92rem; font-weight: 600; cursor: pointer;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(10px);
+      letter-spacing: 0.06em;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    #wso-dismiss:hover {
+      background: rgba(255,255,255,0.28);
+      transform: scale(1.06);
+      box-shadow: 0 0 25px rgba(255,255,255,0.3);
+    }
+
+    .wso-rain-particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 301;
+      animation: wsoRain linear forwards;
+    }
+    @keyframes wsoRain {
+      0%   { transform: translateY(-40px) rotate(0deg) scale(1);   opacity: 1; }
+      80%  { opacity: 0.85; }
+      100% { transform: translateY(112vh) rotate(540deg) scale(0.4); opacity: 0; }
+    }
   </style>
 </head>
 <body>
@@ -629,21 +733,38 @@
       <div class="s-ring"></div>
     </div>
     <div class="s-flower-badge">🌻</div>
-    <div class="s-tag">21 de Septiembre · Especial</div>
+    <div class="s-tag">Septiembre · Para ti, Haru 🚗🐶🍗🎮🎌</div>
     <h1 class="s-title">Para ti, Haru</h1>
-    <p class="s-subtitle">Un universo dorado florece hoy con cada rayo de tu luz y alegría.</p>
+    <p class="s-subtitle">Coleccionista, gamer, creadora y de enorme corazón — este universo lleva tu nombre hoy y siempre.</p>
     <button class="s-btn" onclick="startExperience()">
-      <span>Descubrir mi Galaxia</span>
+      <span>Entrar a mi Galaxia</span>
       <span>✦</span>
     </button>
   </div>
 
   <!-- ─── Transición de Viaje Hiperespacial ─── -->
-  <div id="travel-hint">Viajando a tu universo, Haru... 💛</div>
+  <div id="travel-hint">Viajando al universo de Haru... 🚗💛</div>
   <div id="warp-flash"></div>
 
   <!-- ─── Insignia Constelación HARU ─── -->
-  <div id="constellation-badge">✨ Constelación Haru ✨</div>
+  <div id="constellation-badge">✨ ¡La estrella más brillante eres tú, Haru! ✨</div>
+
+  <!-- ─── Wish Star Epic Overlay (Transformación Galáctica) ─── -->
+  <div id="wish-star-overlay">
+    <div id="wso-bg"></div>
+    <div id="wso-ripple">
+      <div class="wso-ring"></div>
+      <div class="wso-ring"></div>
+      <div class="wso-ring"></div>
+      <div class="wso-ring"></div>
+    </div>
+    <div id="wso-content">
+      <span id="wso-emoji">🌟</span>
+      <div id="wso-title">¡Deseo Enviado al Universo!</div>
+      <div id="wso-subtitle">Haru, el cosmos te escuchó 💛</div>
+      <button id="wso-dismiss" onclick="dismissWishOverlay()">Volver a mi galaxia ✨</button>
+    </div>
+  </div>
 
   <!-- ─── Three.js Canvas ─── -->
   <canvas id="c"></canvas>
@@ -666,72 +787,90 @@
         <button class="tab-btn" onclick="switchCardTab('wish')">✨ Tu Deseo</button>
       </div>
 
-      <!-- TAB 1: Carta para Haru -->
+      <!-- TAB 1: Carta Personal para Haru -->
       <div id="tab-letter" class="tab-content active">
-        <div class="card-top-tag">21 de Septiembre · Amistad Eterna</div>
+        <div class="card-top-tag">Septiembre · Más de un año de amistad 🌟</div>
         <h2 class="card-title">Para ti, Haru</h2>
-        <p class="card-date">Donde brilla tu luz, siempre es primavera</p>
+        <p class="card-date">Donde brilla tu luz, siempre florece primavera</p>
         <div class="card-stars-divider">
           <span></span>
-          <span class="s-dot">✦</span>
+          <span class="s-dot">🚗</span>
           <span></span>
-          <span class="s-dot">✦</span>
+          <span class="s-dot">🐶</span>
           <span></span>
-          <span class="s-dot">✦</span>
+          <span class="s-dot">🍗</span>
           <span></span>
         </div>
         <p class="card-message">
-          Dicen que las flores amarillas se regalan para iluminar el día de las personas más queridas...<br/><br/>
-          Pero ninguna flor de tienda alcanzaba para agradecerte por ser quien eres, así que te traje una <strong>galaxia entera</strong>.<br/><br/>
-          Gracias por tu alegría sincera, por cada risa compartida y por hacer que todo sea más bonito con solo estar aquí.
+          Hace más de un año te conocí por internet y desde entonces
+          has sido una de esas personas que dejan huella de verdad...<br/><br/>
+          Has pasado por momentos complicados y aun así siempre te has mostrado
+          <strong>de enorme corazón, presente e interesada por los demás</strong>.
+          Eso no es común, y es lo que más admiro de ti.<br/><br/>
+          Hoy te veo construyendo tu comunidad, compartiendo quién eres de verdad:
+          tu hermosa voz, tus Hot Wheels, tu amor por el anime y los perritos,
+          tus locuras con el pollo frito y tus batallas en Rocket League...
+          <strong>todo eso eres tú, y es genuinamente hermoso.</strong><br/><br/>
+          Esta galaxia entera lleva tu nombre hoy. Porque te la mereces.
         </p>
         <div class="card-signature">
-          Con todo mi cariño y admiración<br/>
+          Con mucho cariño y admiración<br/>
           <span style="color:#FFD700; font-size:1.15em;">- Javier 💛</span>
         </div>
       </div>
 
-      <!-- TAB 2: Jardín de Flores de Haru -->
+      <!-- TAB 2: El Universo de Haru -->
       <div id="tab-garden" class="tab-content">
-        <div class="card-top-tag">Significados Especiales</div>
-        <h3 style="font-family:'Dancing Script', cursive; font-size:2.2rem; color:#FFD700; margin-bottom:12px;">Las 4 Flores de Haru</h3>
+        <div class="card-top-tag">El Universo de Haru ✨</div>
+        <h3 style="font-family:'Dancing Script', cursive; font-size:2.2rem; color:#FFD700; margin-bottom:12px;">Lo que la hace única</h3>
         <div class="flower-grid">
-          <div class="flower-item" onclick="triggerFlowerShowcase('Girasol Radiante', '🌻 Siempre sigue tu luz y contagia calidez')">
-            <div class="f-icon">🌻</div>
-            <div class="f-name">Girasol</div>
-            <div class="f-desc">Busca la luz igual que tu energía constante.</div>
+          <div class="flower-item" onclick="triggerFlowerShowcase('Hot Wheels 🚗', '¡La coleccionista más cool del universo! ¡Tiene el mejor gusto!')">
+            <div class="f-icon">🚗</div>
+            <div class="f-name">Hot Wheels</div>
+            <div class="f-desc">Coleccionista y apasionada. ¡La reina de los carritos!</div>
           </div>
-          <div class="flower-item" onclick="triggerFlowerShowcase('Flor de Primavera', '🌸 Haru significa primavera: renacer y alegría')">
-            <div class="f-icon">🌸</div>
-            <div class="f-name">Sakura Haru</div>
-            <div class="f-desc">El renacer dulce que alegra cada lugar.</div>
+          <div class="flower-item" onclick="triggerFlowerShowcase('Rocket League 🎮', '¡La gamer que domina las canchas del universo! MVP siempre.')">
+            <div class="f-icon">🎮</div>
+            <div class="f-name">Rocket League</div>
+            <div class="f-desc">Su juego favorito. ¡Gamer de corazón y alma!</div>
           </div>
-          <div class="flower-item" onclick="triggerFlowerShowcase('Margarita Dorada', '🌼 Amistad leal, risas sinceras y confianza')">
-            <div class="f-icon">🌼</div>
-            <div class="f-name">Margarita</div>
-            <div class="f-desc">Amistad pura, momentos felices y tranquilidad.</div>
+          <div class="flower-item" onclick="triggerFlowerShowcase('Perritos 🐶', '¡El amor más puro siempre viene con cola y cuatro patas!')">
+            <div class="f-icon">🐶</div>
+            <div class="f-name">Perritos</div>
+            <div class="f-desc">Amor peludo incondicional. ¡Los ama con toda el alma!</div>
           </div>
-          <div class="flower-item" onclick="triggerFlowerShowcase('Mariposa Dorada', '🦋 Tu libertad, espontaneidad y buena vibra')">
-            <div class="f-icon">🦋</div>
-            <div class="f-name">Mariposa</div>
-            <div class="f-desc">La libertad y dulzura que dejas al pasar.</div>
+          <div class="flower-item" onclick="triggerFlowerShowcase('Pollo Frito 🍗', '¡La mejor comida del universo, según Haru y el universo tiene razón!')">
+            <div class="f-icon">🍗</div>
+            <div class="f-name">Pollo Frito</div>
+            <div class="f-desc">Su platillo sagrado. ¡El sabor que alegra cualquier día!</div>
+          </div>
+          <div class="flower-item" onclick="triggerFlowerShowcase('Anime 🎌', '¡Historias, personajes y mundos que llenan el alma de Haru!')">
+            <div class="f-icon">🎌</div>
+            <div class="f-name">Anime</div>
+            <div class="f-desc">Arte y alma japonesa. ¡Apasionada y fiel seguidora!</div>
+          </div>
+          <div class="flower-item" onclick="triggerFlowerShowcase('Creadora ✨', '¡Construyendo su comunidad con amor, voz hermosa y autenticidad!')">
+            <div class="f-icon">📱</div>
+            <div class="f-name">Creadora</div>
+            <div class="f-desc">TikTok &amp; lives. Su comunidad la ama porque es real.</div>
           </div>
         </div>
       </div>
 
       <!-- TAB 3: Deseo Galáctico -->
       <div id="tab-wish" class="tab-content">
-        <div class="card-top-tag">Magia Galáctica</div>
+        <div class="card-top-tag">Magia Galáctica ✨</div>
         <h3 style="font-family:'Dancing Script', cursive; font-size:2.2rem; color:#FFD700; margin-bottom:8px;">Envía tu Deseo</h3>
-        <p class="wish-intro">Elige un deseo especial para lanzar una estrella fugaz directo al corazón de tu galaxia:</p>
+        <p class="wish-intro">Elige un deseo especial y libera una estrella fugaz que transformará toda tu galaxia, Haru:</p>
         <div class="wish-chips">
-          <span class="wish-chip selected" onclick="selectWish(this, 'Sonrisas y Felicidad Infinita')">Sonrisas Infinitas 🌻</span>
-          <span class="wish-chip" onclick="selectWish(this, 'Éxito y Sueños Cumplidos')">Sueños Cumplidos ⭐</span>
-          <span class="wish-chip" onclick="selectWish(this, 'Paz, Luz y Días Bonitos')">Paz y Luz 💛</span>
-          <span class="wish-chip" onclick="selectWish(this, 'Momentos Inolvidables Juntos')">Momentos Felices 🌸</span>
+          <span class="wish-chip selected" onclick="selectWish(this, '¡Que tu comunidad crezca!')">Crece tu comunidad 🚀</span>
+          <span class="wish-chip" onclick="selectWish(this, '¡Éxito en tu contenido!')">Éxito en tu contenido 🎥</span>
+          <span class="wish-chip" onclick="selectWish(this, '¡Felicidad y paz en tu vida!')">Felicidad eterna 🌻</span>
+          <span class="wish-chip" onclick="selectWish(this, '¡Que ganes todos los partidos!')">Domina Rocket League 🎮</span>
+          <span class="wish-chip" onclick="selectWish(this, '¡Infinite pollo frito para Haru!')">Pollo frito infinito 🍗</span>
         </div>
         <button class="wish-send-btn" onclick="sendWishStar()">
-          <span>Liberar Estrella de Deseo</span>
+          <span>¡Liberar Estrella de Deseo!</span>
           <span>✦</span>
         </button>
       </div>
@@ -739,7 +878,7 @@
   </div>
 
   <!-- ─── Botón Reabrir Tarjeta ─── -->
-  <button id="reopen-btn" onclick="reopenCard()">Ver mensaje de Haru 💌</button>
+  <button id="reopen-btn" onclick="reopenCard()">Tu galaxia te espera, Haru 🌻💛</button>
 
   <!-- ─── Control de Audio Moderno con Ondas ─── -->
   <div id="audio-control" class="audio-control">
@@ -1230,45 +1369,45 @@
   }
 
   // ═════════════════════════════════════════════════════════
-  //  8. FRASES 3D PERSONALIZADAS PARA HARU (40 FRASES)
+  //  8. FRASES 3D PERSONALIZADAS PARA HARU (36 FRASES REALES)
   // ═════════════════════════════════════════════════════════
   const FRASES_DATA = [
-    { text: 'Haru: eres luz que no se apaga', icon: '🌻' },
-    { text: 'Donde estás, siempre florece primavera', icon: '🌸' },
-    { text: 'Como el girasol, contagias alegría', icon: '💛' },
-    { text: 'Gracias por ser de esas personas únicas', icon: '✨' },
-    { text: 'Haru, tu sonrisa alegra cualquier día', icon: '🌼' },
-    { text: 'Hoy esta galaxia entera lleva tu nombre', icon: '🌻' },
-    { text: '21 de septiembre: flores eternas para ti', icon: '💛' },
-    { text: 'Tu amistad vale más que mil tesoros', icon: '🌸' },
-    { text: 'Gracias por escuchar y por estar siempre', icon: '✨' },
-    { text: 'Pétalos dorados para una persona dorada', icon: '🌼' },
-    { text: 'Haru, gracias por tu vibra tan linda', icon: '🌻' },
-    { text: 'El universo conspira para verte sonreír', icon: '💛' },
-    { text: 'Un abrazo galáctico por ser tan genial', icon: '🌸' },
-    { text: 'Contigo las tardes pesan mucho menos', icon: '✨' },
-    { text: 'Brillas con luz propia en cada momento', icon: '🌼' },
-    { text: 'Haru = primavera, calidez y cariño', icon: '🌻' },
-    { text: 'Aquí siempre tendrás a un amigo incondicional', icon: '💛' },
-    { text: 'Gracias por sumar paz a mis días', icon: '🌸' },
-    { text: 'Que nunca se borre tu risa contagiosa', icon: '✨' },
-    { text: 'Esta flor es para recordarte lo que vales', icon: '🌼' },
-    { text: 'Haru, gracias por existir y por coincidir', icon: '🌻' },
-    { text: 'Pienso en ti con mucho aprecio y cariño', icon: '💛' },
-    { text: 'Eres sol en días nublados', icon: '🌸' },
-    { text: 'Un ramo de estrellas hecho para ti', icon: '✨' },
-    { text: 'Por más risas, anécdotas y momentos', icon: '🌼' },
-    { text: 'Tu calidez ilumina cada rincón', icon: '🌻' },
-    { text: 'Flores amarillas que jamás se marchitan', icon: '💛' },
-    { text: 'Qué suerte tan bonita tenerte cerca', icon: '🌸' },
-    { text: 'Haru, que todos tus sueños florezcan', icon: '✨' },
-    { text: 'Tu bondad sincera es de admirar', icon: '🌼' },
-    { text: 'Para la más especial de este universo', icon: '🌻' },
-    { text: 'Un detalle con el corazón para ti', icon: '💛' },
-    { text: 'Paz, amor y luz para tu camino', icon: '🌸' },
-    { text: 'Haru: inspiración, dulzura y alegría', icon: '✨' },
-    { text: 'Siempre firme y brillante como girasol', icon: '🌼' },
-    { text: 'Celebro tenerte en mi vida hoy y siempre', icon: '🌻' }
+    { text: 'Haru: más única que un Hot Wheels edición limitada', icon: '🚗' },
+    { text: 'Tu voz es la banda sonora de esta galaxia', icon: '🌟' },
+    { text: 'Gamer, creadora y de gran corazón: eso es Haru', icon: '🎮' },
+    { text: 'Que tu comunidad crezca tanto como tu sonrisa', icon: '💖' },
+    { text: 'Los perritos saben lo buena persona que eres', icon: '🐶' },
+    { text: 'Haru = pollo frito + anime + buena vibra', icon: '🍗' },
+    { text: 'Tu corazón es el más grande de este universo', icon: '💛' },
+    { text: 'Cada live tuyo ilumina el día de muchos', icon: '✨' },
+    { text: 'Eres más fuerte de lo que crees, Haru', icon: '🌸' },
+    { text: 'Rocket League te prepara para cualquier batalla', icon: '🚀' },
+    { text: 'Tu dedicación como creadora es admirable', icon: '🎥' },
+    { text: 'Haru, tu bondad llega más lejos que cualquier cometa', icon: '🌻' },
+    { text: 'Tu risa vale más que toda una colección de Hot Wheels', icon: '🚗' },
+    { text: 'Gracias por ser de las personas que de verdad se interesan', icon: '💛' },
+    { text: 'Más de un año de amistad que vale galaxias enteras', icon: '🌌' },
+    { text: 'Cada episodio de anime es mejor conociéndote', icon: '🎌' },
+    { text: 'Tu comunidad te quiere porque eres auténtica, Haru', icon: '💖' },
+    { text: 'Tienes la fuerza de quien ha superado tormentas', icon: '🌸' },
+    { text: 'Haru: bonita cara, mejor corazón', icon: '✨' },
+    { text: '¡Goal! Tu vida va encaminada a cosas hermosas', icon: '🎮' },
+    { text: 'Tus seguidores tienen suerte de conocerte', icon: '💫' },
+    { text: 'Pollo frito y buena compañía: eso eres tú', icon: '🍗' },
+    { text: 'Los perritos son felices porque existes', icon: '🐶' },
+    { text: 'Haru: de internet al corazón, de amiga a tesoro', icon: '💛' },
+    { text: 'Tu voz podría calmar cualquier galaxia en caos', icon: '🌟' },
+    { text: 'Más real que cualquier anime que hayas visto', icon: '🎌' },
+    { text: 'Un año conociéndote y sigues sorprendiendo', icon: '🌻' },
+    { text: 'Tu manera de querer a los demás es especial', icon: '💖' },
+    { text: 'Haru y los Hot Wheels: velocidad y estilo a tope', icon: '🚗' },
+    { text: '¡Ganas en Rocket League y en la vida!', icon: '🏆' },
+    { text: 'Cada video tuyo lleva un pedacito de tu alma', icon: '🎥' },
+    { text: 'Eres sol en días nublados y luna en noches de caos', icon: '✨' },
+    { text: 'El universo necesita más personas como tú, Haru', icon: '🌌' },
+    { text: 'Tus lives son el mejor plan del día, siempre', icon: '💫' },
+    { text: 'De amiga de internet a persona importantísima', icon: '💛' },
+    { text: 'Haru: puro corazón, pura autenticidad, pura magia', icon: '🌟' }
   ];
 
   const phraseColors = ['#FFD700', '#FFE566', '#FFB347', '#FFF2A0', '#FFCC44', '#FFAA00'];
@@ -1389,6 +1528,116 @@
       ctx.beginPath(); ctx.ellipse(cx - 32, cy + 25, 28, 20, Math.PI / 8, 0, Math.PI * 2); ctx.fill();
       ctx.beginPath(); ctx.ellipse(cx + 32, cy + 25, 28, 20, -Math.PI / 8, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = '#4E342E'; ctx.beginPath(); ctx.ellipse(cx, cy, 7.5, 36, 0, 0, Math.PI * 2); ctx.fill();
+    } else if (type === 'hotwheel') {
+      // Hot Wheels car 🚗
+      const carg = ctx.createLinearGradient(30, 90, 226, 160);
+      carg.addColorStop(0, '#FF3333'); carg.addColorStop(1, '#BB0000');
+      ctx.fillStyle = carg;
+      ctx.beginPath(); ctx.roundRect(30, 100, 196, 58, 14); ctx.fill();
+      ctx.fillStyle = '#880000';
+      ctx.beginPath(); ctx.roundRect(66, 68, 124, 40, 10); ctx.fill();
+      ctx.fillStyle = 'rgba(150,220,255,0.72)';
+      ctx.beginPath(); ctx.roundRect(71, 72, 48, 29, 6); ctx.fill();
+      ctx.beginPath(); ctx.roundRect(137, 72, 48, 29, 6); ctx.fill();
+      ctx.fillStyle = '#1A1A1A';
+      ctx.beginPath(); ctx.arc(76, 160, 29, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(180, 160, 29, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#FFD700';
+      ctx.beginPath(); ctx.arc(76, 160, 15, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(180, 160, 15, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#333';
+      ctx.beginPath(); ctx.arc(76, 160, 7, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(180, 160, 7, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#FF8C00';
+      for (let fi = 0; fi < 3; fi++) {
+        ctx.beginPath();
+        ctx.moveTo(33 + fi * 18, 108);
+        ctx.quadraticCurveTo(26 + fi * 18, 86, 42 + fi * 18, 106);
+        ctx.fill();
+      }
+    } else if (type === 'puppy') {
+      // Cute puppy face 🐶
+      const headg = ctx.createRadialGradient(cx, cy, 8, cx, cy, 88);
+      headg.addColorStop(0, '#E8A96A'); headg.addColorStop(1, '#9B5E2A');
+      ctx.fillStyle = headg;
+      ctx.beginPath(); ctx.arc(cx, cy + 5, 88, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#7A4520';
+      ctx.beginPath(); ctx.ellipse(cx - 68, cy - 45, 26, 44, -0.35, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(cx + 68, cy - 45, 26, 44, 0.35, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#F2C48A';
+      ctx.beginPath(); ctx.ellipse(cx, cy + 32, 48, 36, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#2C1A0E';
+      ctx.beginPath(); ctx.arc(cx - 28, cy - 6, 15, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(cx + 28, cy - 6, 15, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#fff';
+      ctx.beginPath(); ctx.arc(cx - 22, cy - 12, 5, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(cx + 34, cy - 12, 5, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#3D1A10';
+      ctx.beginPath(); ctx.ellipse(cx, cy + 20, 15, 10, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#3D1A10'; ctx.lineWidth = 4; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(cx, cy + 30); ctx.quadraticCurveTo(cx - 20, cy + 48, cx - 30, cy + 40); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx, cy + 30); ctx.quadraticCurveTo(cx + 20, cy + 48, cx + 30, cy + 40); ctx.stroke();
+      ctx.fillStyle = 'rgba(255,100,130,0.5)';
+      ctx.beginPath(); ctx.arc(cx - 52, cy + 30, 18, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(cx + 52, cy + 30, 18, 0, Math.PI * 2); ctx.fill();
+    } else if (type === 'chicken') {
+      // Fried chicken 🍗
+      const ckg = ctx.createRadialGradient(cx - 8, cy - 30, 8, cx, cy - 20, 70);
+      ckg.addColorStop(0, '#D2691E'); ckg.addColorStop(0.5, '#A0522D'); ckg.addColorStop(1, '#6B3A1F');
+      ctx.fillStyle = ckg;
+      ctx.beginPath(); ctx.ellipse(cx, cy - 20, 65, 78, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#FFD700';
+      for (let ci = 0; ci < 6; ci++) {
+        const ca = (ci / 6) * Math.PI * 2;
+        ctx.beginPath(); ctx.arc(cx + Math.cos(ca) * 42, cy - 20 + Math.sin(ca) * 48, 10, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.fillStyle = '#F5E8C8';
+      ctx.beginPath(); ctx.roundRect(cx - 9, cy + 55, 18, 48, 9); ctx.fill();
+      ctx.beginPath(); ctx.arc(cx, cy + 55, 12, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(cx, cy + 103, 15, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.5)'; ctx.lineWidth = 3; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(cx - 15, cy - 99); ctx.quadraticCurveTo(cx - 28, cy - 120, cx - 15, cy - 140); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx + 15, cy - 99); ctx.quadraticCurveTo(cx + 28, cy - 120, cx + 15, cy - 140); ctx.stroke();
+    } else if (type === 'controller') {
+      // Game controller 🎮 (Rocket League vibe)
+      const ctg = ctx.createLinearGradient(cx - 88, cy - 44, cx + 88, cy + 60);
+      ctg.addColorStop(0, '#37474F'); ctg.addColorStop(1, '#1C2D38');
+      ctx.fillStyle = ctg;
+      ctx.beginPath(); ctx.roundRect(cx - 90, cy - 44, 180, 96, 22); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(cx - 58, cy + 60, 30, 40, -0.2, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(cx + 58, cy + 60, 30, 40, 0.2, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#546E7A';
+      ctx.fillRect(cx - 68, cy - 16, 11, 36); ctx.fillRect(cx - 79, cy - 6, 33, 16);
+      const bColors = ['#F44336', '#4CAF50', '#2196F3', '#FFD700'];
+      const bPos = [{x:cx+52,y:cy-20},{x:cx+68,y:cy-6},{x:cx+52,y:cy+8},{x:cx+36,y:cy-6}];
+      bPos.forEach((bp, bi) => {
+        ctx.fillStyle = bColors[bi];
+        ctx.beginPath(); ctx.arc(bp.x, bp.y, 11, 0, Math.PI * 2); ctx.fill();
+      });
+      ctx.fillStyle = '#FF6B35';
+      ctx.beginPath(); ctx.arc(cx, cy, 18, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#fff'; ctx.font = 'bold 14px sans-serif';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('RL', cx, cy);
+    } else if (type === 'anime') {
+      // Anime star / 春 aesthetic 🎌
+      for (let ai = 0; ai < 8; ai++) {
+        const a1 = (ai / 8) * Math.PI * 2 - Math.PI / 2;
+        const a2 = a1 + Math.PI / 8;
+        ctx.fillStyle = ai % 2 === 0 ? '#FFD700' : '#FF69B4';
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(cx + Math.cos(a1) * 108, cy + Math.sin(a1) * 108);
+        ctx.lineTo(cx + Math.cos(a2) * 44, cy + Math.sin(a2) * 44);
+        ctx.closePath(); ctx.fill();
+      }
+      const ag2 = ctx.createRadialGradient(cx, cy, 5, cx, cy, 38);
+      ag2.addColorStop(0, '#FFF9C4'); ag2.addColorStop(1, '#FFB300');
+      ctx.fillStyle = ag2;
+      ctx.beginPath(); ctx.arc(cx, cy, 38, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#7B1FA2'; ctx.font = 'bold 28px serif';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('春', cx, cy);
     } else {
       // Corazón dorado
       const g = ctx.createLinearGradient(cx, cy - 60, cx, cy + 70);
@@ -1403,19 +1652,27 @@
   }
 
   const flowerTextures = {
-    sunflower: createFlowerTexture('sunflower'),
-    sakura:    createFlowerTexture('sakura'),
-    kawaii:    createFlowerTexture('kawaii'),
-    butterfly: createFlowerTexture('butterfly'),
-    heart:     createFlowerTexture('heart')
+    sunflower:  createFlowerTexture('sunflower'),
+    sakura:     createFlowerTexture('sakura'),
+    kawaii:     createFlowerTexture('kawaii'),
+    butterfly:  createFlowerTexture('butterfly'),
+    heart:      createFlowerTexture('heart'),
+    hotwheel:   createFlowerTexture('hotwheel'),
+    puppy:      createFlowerTexture('puppy'),
+    chicken:    createFlowerTexture('chicken'),
+    controller: createFlowerTexture('controller'),
+    anime:      createFlowerTexture('anime')
   };
 
   const FLOWER_VARIETIES = [
-    { type: 'sunflower', name: 'Girasol de Haru · Siempre buscando tu luz', icon: '🌻', size: 30 },
-    { type: 'sakura',    name: 'Flor de Primavera (Haru) · Renacer y alegría', icon: '🌸', size: 32 },
-    { type: 'kawaii',    name: 'Sonrisa de Haru · Alegras todo a tu paso', icon: '🌻', size: 32 },
-    { type: 'butterfly', name: 'Mariposa Dorada · Libertad, dulzura y sonrisas', icon: '🦋', size: 28 },
-    { type: 'heart',     name: 'Corazón Agradecido · Gracias por tu amistad', icon: '💛', size: 28 }
+    { type: 'hotwheel',   name: '¡La reina de los Hot Wheels del universo!', icon: '🚗', size: 34 },
+    { type: 'puppy',      name: '¡Los perritos la aman porque es amor puro!', icon: '🐶', size: 32 },
+    { type: 'chicken',    name: '¡Pollo frito para la persona más especial!', icon: '🍗', size: 30 },
+    { type: 'controller', name: '¡Gamer de corazón, campeona de Rocket League!', icon: '🎮', size: 34 },
+    { type: 'anime',      name: '¡El anime la entiende como nadie más!', icon: '🎌', size: 30 },
+    { type: 'sunflower',  name: 'Haru: siempre buscando la luz, como el girasol', icon: '🌻', size: 30 },
+    { type: 'kawaii',     name: '¡Su sonrisa alegra todo a su paso!', icon: '🌸', size: 30 },
+    { type: 'heart',      name: '¡Gracias por ser de las personas que de verdad se interesan!', icon: '💛', size: 28 }
   ];
 
   const flowerGroup = new THREE.Group();
@@ -1808,7 +2065,7 @@
   // ═════════════════════════════════════════════════════════
   //  12. CLICK BURST & DETECCIÓN DE ELEMENTOS
   // ═════════════════════════════════════════════════════════
-  const BURST = ['🌻', '💛', '🌸', '✨', '✦', '⭐'];
+  const BURST = ['🌻', '🚗', '🐶', '🍗', '🎮', '✨', '💛', '🌸', '⭐', '🎌'];
   function spawnBurst(x, y) {
     for (let i = 0; i < 7; i++) {
       const el = document.createElement('div');
@@ -1931,7 +2188,69 @@
     showPhraseToast(`${name}: ${meaning}`, '🌸');
   }
 
-  let selectedWishText = 'Sonrisas y Felicidad Infinita';
+  // ─── TEMAS PARA CADA DESEO GALÁCTICO ───
+  const WISH_THEMES = {
+    '¡Que tu comunidad crezca!': {
+      emoji: '💖',
+      emojis: ['💖', '⭐', '🌟', '✨', '💫', '🫶', '🚀', '💖', '🌟', '✨'],
+      bgGradient: 'radial-gradient(ellipse at center, rgba(233,30,99,0.92) 0%, rgba(103,58,183,0.82) 50%, rgba(7,5,15,0.97) 100%)',
+      title: '¡Tu comunidad va a crecer sin límites!',
+      subtitle: 'Haru, el universo entero te apoya y te ama 💖',
+      glowColor: 'rgba(233,30,99,0.55)'
+    },
+    '¡Éxito en tu contenido!': {
+      emoji: '🎥',
+      emojis: ['🎥', '⭐', '✨', '🌟', '💫', '🎬', '📱', '⭐', '🎥', '🌟'],
+      bgGradient: 'radial-gradient(ellipse at center, rgba(0,176,255,0.92) 0%, rgba(0,80,200,0.82) 50%, rgba(7,5,15,0.97) 100%)',
+      title: '¡Tu contenido va a brillar como nunca!',
+      subtitle: 'Haru, tu voz y tu carisma no tienen límite ✨',
+      glowColor: 'rgba(0,176,255,0.55)'
+    },
+    '¡Felicidad y paz en tu vida!': {
+      emoji: '🌻',
+      emojis: ['🌻', '💛', '🌸', '✨', '🌼', '🐶', '💛', '🌻', '✨', '🌸'],
+      bgGradient: 'radial-gradient(ellipse at center, rgba(255,210,0,0.92) 0%, rgba(255,140,0,0.75) 50%, rgba(7,5,15,0.97) 100%)',
+      title: '¡Que la felicidad siempre te rodee!',
+      subtitle: 'Haru, eres pura luz y amor para todos 🌻',
+      glowColor: 'rgba(255,215,0,0.55)'
+    },
+    '¡Que ganes todos los partidos!': {
+      emoji: '🎮',
+      emojis: ['🎮', '🚀', '⚽', '🔥', '💥', '🏆', '⭐', '🎮', '🚀', '🔥'],
+      bgGradient: 'radial-gradient(ellipse at center, rgba(255,87,34,0.92) 0%, rgba(183,28,28,0.82) 50%, rgba(7,5,15,0.97) 100%)',
+      title: '¡Que ganes cada partida, campeona!',
+      subtitle: 'Haru, eres la reina de Rocket League 🚀',
+      glowColor: 'rgba(255,87,34,0.55)'
+    },
+    '¡Infinite pollo frito para Haru!': {
+      emoji: '🍗',
+      emojis: ['🍗', '🍗', '🔥', '✨', '💛', '🍗', '😂', '🍗', '🔥', '🍗'],
+      bgGradient: 'radial-gradient(ellipse at center, rgba(255,193,7,0.96) 0%, rgba(255,111,0,0.86) 50%, rgba(7,5,15,0.97) 100%)',
+      title: '¡Pollo frito infinito para Haru!',
+      subtitle: '¡El universo te bendice con la mejor comida del mundo! 🍗🎉',
+      glowColor: 'rgba(255,193,7,0.65)'
+    }
+  };
+
+  let galaxyThemeOverlay = null;
+  function applyGalaxyTheme(glowColor) {
+    if (!galaxyThemeOverlay) {
+      galaxyThemeOverlay = document.createElement('div');
+      galaxyThemeOverlay.style.cssText = 'position:fixed;inset:0;z-index:2;pointer-events:none;transition:opacity 2.5s ease;opacity:0;';
+      const canvas = document.getElementById('c');
+      canvas.parentNode.insertBefore(galaxyThemeOverlay, canvas.nextSibling);
+    }
+    galaxyThemeOverlay.style.background = `radial-gradient(ellipse at 50% 50%, ${glowColor} 0%, transparent 65%)`;
+    galaxyThemeOverlay.style.opacity = '1';
+    setTimeout(() => { galaxyThemeOverlay.style.opacity = '0'; }, 8000);
+  }
+
+  function dismissWishOverlay() {
+    document.getElementById('wish-star-overlay').classList.remove('show');
+    reopenBtn.classList.add('show');
+  }
+
+  let selectedWishText = '¡Que tu comunidad crezca!';
   function selectWish(chipEl, text) {
     document.querySelectorAll('.wish-chip').forEach(c => c.classList.remove('selected'));
     chipEl.classList.add('selected');
@@ -1940,30 +2259,71 @@
   }
 
   function sendWishStar() {
-    // Cierra la tarjeta y libera un cometa especial hacia el centro con sonido y fuegos artificiales
-    cardOverlay.classList.remove('visible');
-    reopenBtn.classList.add('show');
+    const theme = WISH_THEMES[selectedWishText] || WISH_THEMES['¡Felicidad y paz en tu vida!'];
 
-    // Despacha un cometa veloz
-    if (comets.length > 0) {
-      spawnComet(comets[0]);
+    // Cierra la tarjeta
+    cardOverlay.classList.remove('visible');
+
+    // Cascada de notas celestiales
+    playCelestialChime(5);
+    setTimeout(() => playCelestialChime(3), 180);
+    setTimeout(() => playCelestialChime(1), 360);
+    setTimeout(() => playCelestialChime(4), 540);
+    setTimeout(() => playCelestialChime(2), 720);
+    setTimeout(() => playCelestialChime(0), 900);
+
+    // Explosion masiva de partículas desde el centro y alrededores
+    for (let bi = 0; bi < 6; bi++) {
+      setTimeout(() => {
+        const ox = (Math.random() - 0.5) * innerWidth * 0.55;
+        const oy = (Math.random() - 0.5) * innerHeight * 0.55;
+        spawnBurst(innerWidth / 2 + ox, innerHeight / 2 + oy);
+      }, bi * 220);
     }
 
-    playCelestialChime(5);
-    setTimeout(() => playCelestialChime(3), 200);
-    setTimeout(() => playCelestialChime(1), 400);
+    // Lanza todos los cometas
+    comets.forEach((c, ci) => {
+      setTimeout(() => spawnComet(c), ci * 380);
+    });
 
-    showPhraseToast(`¡Deseo lanzado al universo para Haru! ✨ "${selectedWishText}"`, '🌟');
+    // Configura y muestra el overlay épico
+    const overlay = document.getElementById('wish-star-overlay');
+    document.getElementById('wso-bg').style.background = theme.bgGradient;
+    document.getElementById('wso-emoji').textContent = theme.emoji;
+    document.getElementById('wso-title').textContent = theme.title;
+    document.getElementById('wso-subtitle').textContent = theme.subtitle;
+    overlay.classList.add('show');
 
-    // Explosión de partículas en el centro de la pantalla
-    spawnBurst(innerWidth / 2, innerHeight / 2);
-    setTimeout(() => spawnBurst(innerWidth / 2 - 40, innerHeight / 2 - 30), 180);
-    setTimeout(() => spawnBurst(innerWidth / 2 + 40, innerHeight / 2 + 30), 320);
+    // Lluvia de partículas temáticas desde el cielo
+    let particleCount = 0;
+    const rainInterval = setInterval(() => {
+      if (particleCount >= 55) { clearInterval(rainInterval); return; }
+      const p = document.createElement('div');
+      p.className = 'wso-rain-particle';
+      p.textContent = theme.emojis[Math.floor(Math.random() * theme.emojis.length)];
+      p.style.left = (Math.random() * 100) + 'vw';
+      p.style.top = '-40px';
+      p.style.animationDuration = (1.6 + Math.random() * 3) + 's';
+      p.style.fontSize = (1.2 + Math.random() * 1.8) + 'rem';
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 5500);
+      particleCount++;
+    }, 70);
+
+    // Aplica tinte de color a la galaxia
+    applyGalaxyTheme(theme.glowColor);
+
+    // Auto-cierre a los 6 segundos
+    setTimeout(() => {
+      overlay.classList.remove('show');
+      reopenBtn.classList.add('show');
+      showPhraseToast('¡Deseo liberado hacia las estrellas! ✨ Haru, esto es para ti 💛', theme.emoji);
+    }, 6000);
   }
 
   function startCardSparkles() {
     const card  = document.getElementById('glass-card');
-    const icons = ['✦', '💛', '🌸', '·', '✦', '⭐'];
+    const icons = ['🚗', '💛', '🌸', '🐶', '🍗', '🎮', '❆', '⭐', '🌻', '🎌'];
     setInterval(() => {
       if (!cardOverlay.classList.contains('visible')) return;
       const el = document.createElement('div');
