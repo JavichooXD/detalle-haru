@@ -828,6 +828,289 @@
       80%  { opacity: 0.85; }
       100% { transform: translateY(112vh) rotate(540deg) scale(0.4); opacity: 0; }
     }
+
+    /* ═══════════════════════════════════════════════
+       RADAR DE MUNDOS / PLANET DOCK
+    ═══════════════════════════════════════════════ */
+    #planet-dock {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%) translateY(110px);
+      z-index: 45;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(14, 10, 4, 0.85);
+      border: 1px solid rgba(255, 215, 0, 0.38);
+      border-radius: 50px;
+      padding: 6px 14px;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(255, 215, 0, 0.18);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
+      max-width: 95vw;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    #planet-dock::-webkit-scrollbar { display: none; }
+    #planet-dock.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .dock-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 40px;
+      padding: 7px 13px;
+      color: rgba(255, 240, 200, 0.88);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.25s ease;
+    }
+    .dock-btn:hover {
+      background: rgba(255, 215, 0, 0.16);
+      border-color: rgba(255, 215, 0, 0.4);
+      color: #FFFDE7;
+      transform: translateY(-2px);
+    }
+    .dock-btn.active {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.4), rgba(255, 152, 0, 0.35));
+      border-color: #FFD700;
+      color: #FFFDE7;
+      box-shadow: 0 0 16px rgba(255, 215, 0, 0.35);
+    }
+    .dock-icon {
+      font-size: 1.15rem;
+    }
+
+    /* ═══════════════════════════════════════════════
+       TARJETA HOLOGRÁFICA DE MUNDO EN PRIMER PLANO
+    ═══════════════════════════════════════════════ */
+    #planet-sheet {
+      position: fixed;
+      top: 26px;
+      right: 26px;
+      width: min(390px, 92vw);
+      max-height: min(84vh, 600px);
+      background: rgba(14, 10, 4, 0.86);
+      border: 1px solid var(--sheet-border, rgba(255, 215, 0, 0.38));
+      border-radius: 26px;
+      padding: 22px 20px 18px 20px;
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.88), 0 0 38px var(--sheet-glow, rgba(255, 215, 0, 0.25));
+      z-index: 48;
+      opacity: 0;
+      transform: translateX(70px) scale(0.95);
+      pointer-events: none;
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    #planet-sheet.show {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      pointer-events: auto;
+    }
+    .ps-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      flex-shrink: 0;
+    }
+    .ps-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--sheet-accent, #FFD700);
+      background: rgba(255, 215, 0, 0.12);
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 215, 0, 0.28);
+      margin-bottom: 4px;
+    }
+    .ps-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.1rem;
+      color: #fff;
+      line-height: 1.15;
+      text-shadow: 0 0 18px var(--sheet-glow, rgba(255, 215, 0, 0.6));
+    }
+    .ps-close {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: rgba(255, 255, 255, 0.85);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      transition: all 0.25s ease;
+      flex-shrink: 0;
+    }
+    .ps-close:hover {
+      background: rgba(255, 215, 0, 0.32);
+      color: #FFD700;
+      transform: scale(1.1) rotate(90deg);
+    }
+    .ps-body {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 2px 6px 12px 2px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 215, 0, 0.4) transparent;
+    }
+    .ps-body::-webkit-scrollbar { width: 5px; }
+    .ps-body::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, var(--sheet-accent, #FFD700), #FF9800);
+      border-radius: 10px;
+    }
+    .ps-subtitle {
+      font-size: 0.8rem;
+      color: rgba(255, 240, 200, 0.72);
+      margin-bottom: 12px;
+      font-style: italic;
+      letter-spacing: 0.02em;
+    }
+    .ps-text {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.93rem;
+      line-height: 1.68;
+      color: rgba(255, 255, 255, 0.94);
+      margin-bottom: 16px;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.8);
+    }
+    .ps-action-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, var(--sheet-accent, #FFD700), #FF9800);
+      border: none;
+      border-radius: 50px;
+      color: #120901;
+      font-weight: 700;
+      font-size: 0.88rem;
+      font-family: 'Outfit', sans-serif;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+      box-shadow: 0 0 22px var(--sheet-glow, rgba(255, 215, 0, 0.45));
+      margin-bottom: 12px;
+    }
+    .ps-action-btn:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 35px var(--sheet-glow, rgba(255, 215, 0, 0.75));
+    }
+    .ps-nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 215, 0, 0.18);
+      flex-shrink: 0;
+    }
+    .ps-nav-btn {
+      background: rgba(255, 215, 0, 0.08);
+      border: 1px solid rgba(255, 215, 0, 0.22);
+      color: rgba(255, 240, 200, 0.88);
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+    .ps-nav-btn:hover {
+      background: rgba(255, 215, 0, 0.22);
+      color: #fff;
+      border-color: #FFD700;
+    }
+    .ps-nav-home {
+      background: rgba(255, 215, 0, 0.18);
+      color: #FFD700;
+      border-color: rgba(255, 215, 0, 0.45);
+    }
+
+    /* Tooltip 3D de Planetas */
+    #planet-tooltip {
+      position: fixed;
+      pointer-events: none;
+      z-index: 60;
+      padding: 7px 16px;
+      border-radius: 25px;
+      background: rgba(14, 10, 4, 0.88);
+      border: 1px solid rgba(255, 215, 0, 0.45);
+      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.85), 0 0 16px rgba(255, 215, 0, 0.28);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      color: #FFFDE7;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      opacity: 0;
+      transform: translate(-50%, -135%);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      white-space: nowrap;
+    }
+    #planet-tooltip.show {
+      opacity: 1;
+    }
+
+    /* Responsivo para móviles */
+    @media (max-width: 600px) {
+      #planet-sheet {
+        top: auto;
+        bottom: 78px;
+        right: 50%;
+        transform: translateX(50%) translateY(40px);
+        width: calc(100vw - 20px);
+        max-height: 52vh;
+        padding: 16px 14px 12px 14px;
+      }
+      #planet-sheet.show {
+        transform: translateX(50%) translateY(0);
+      }
+      #planet-dock {
+        bottom: 12px;
+        padding: 4px 8px;
+        gap: 3px;
+      }
+      .dock-btn {
+        padding: 5px 9px;
+        font-size: 0.72rem;
+      }
+      .ps-title {
+        font-size: 1.7rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1033,8 +1316,69 @@
     Arrastra para explorar tu universo
   </div>
 
+  <!-- ─── Tooltip 3D Dinámico de Planetas ─── -->
+  <div id="planet-tooltip"></div>
+
+  <!-- ─── Tarjeta Holográfica de Mundo en Primer Plano ─── -->
+  <div id="planet-sheet">
+    <div class="ps-header">
+      <div>
+        <span class="ps-badge" id="ps-badge">Mundo 1</span>
+        <h2 class="ps-title" id="ps-title">Planeta Dragster</h2>
+      </div>
+      <button class="ps-close" onclick="closePlanetSheet()" title="Cerrar">✕</button>
+    </div>
+    <div class="ps-body">
+      <div class="ps-subtitle" id="ps-subtitle">Santuario de Velocidad y Coleccionismo</div>
+      <p class="ps-text" id="ps-text"></p>
+      <button class="ps-action-btn" id="ps-action-btn" onclick="triggerPlanetAction()">
+        <span id="ps-action-icon">🏁</span>
+        <span id="ps-action-label">Acelerar a fondo</span>
+      </button>
+    </div>
+    <div class="ps-nav-bar">
+      <button class="ps-nav-btn" onclick="navigatePlanet(-1)">⬅ Anterior</button>
+      <button class="ps-nav-btn ps-nav-home" onclick="returnToGalaxyOverview()">🚀 Ver Galaxia</button>
+      <button class="ps-nav-btn" onclick="navigatePlanet(1)">Siguiente ➡</button>
+    </div>
+  </div>
+
+  <!-- ─── Radar de Mundos Cósmico (Bottom Dock) ─── -->
+  <div id="planet-dock">
+    <button class="dock-btn active" id="dock-center" onclick="returnToGalaxyOverview()" title="Centro de la Galaxia">
+      <span class="dock-icon">🌌</span>
+      <span>Galaxia</span>
+    </button>
+    <button class="dock-btn" id="dock-p0" onclick="flyToPlanet(0)" title="Mundo Hot Wheels">
+      <span class="dock-icon">🚗</span>
+      <span>Hot Wheels</span>
+    </button>
+    <button class="dock-btn" id="dock-p1" onclick="flyToPlanet(1)" title="Mundo Rocket League">
+      <span class="dock-icon">🎮</span>
+      <span>Rocket League</span>
+    </button>
+    <button class="dock-btn" id="dock-p2" onclick="flyToPlanet(2)" title="Mundo Perritos">
+      <span class="dock-icon">🐶</span>
+      <span>Perritos</span>
+    </button>
+    <button class="dock-btn" id="dock-p3" onclick="flyToPlanet(3)" title="Mundo Pollo Frito">
+      <span class="dock-icon">🍗</span>
+      <span>Pollo Frito</span>
+    </button>
+    <button class="dock-btn" id="dock-p4" onclick="flyToPlanet(4)" title="Mundo Anime">
+      <span class="dock-icon">🎌</span>
+      <span>Anime</span>
+    </button>
+    <button class="dock-btn" id="dock-p5" onclick="flyToPlanet(5)" title="Supernova Creadora">
+      <span class="dock-icon">📱</span>
+      <span>Creadora</span>
+    </button>
+  </div>
+
   <!-- Three.js Library -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.148.0/build/three.min.js"></script>
+  <!-- GSAP Library para animaciones fluidas de cámara y física orbital -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 
   <script>
   // ═════════════════════════════════════════════════════════
@@ -1103,6 +1447,12 @@
   let targetDist = isMobile ? 320 : 280, currentDist = isMobile ? 320 : 280;
   let rotX = 0.28, rotY = 0;
   let dragging = false, lastX = 0, lastY = 0;
+
+  // Variables para Navegación Orbital y Planetas 3D
+  const cameraTarget = new THREE.Vector3(0, 0, 0);
+  let cameraMode = 'GLOBAL'; // 'GLOBAL', 'TRANSITIONING', 'PLANET'
+  let focusedPlanetIndex = -1;
+  let planetAngleX = 0.22, planetAngleY = 0;
 
   // ─── GRUPO PRINCIPAL DE LA GALAXIA ───
   const galaxyGroup = new THREE.Group();
@@ -1822,6 +2172,542 @@
   }
 
   // ═════════════════════════════════════════════════════════
+  //  SISTEMA PLANETARIO 3D INTERACTIVO DE HARU (6 MUNDOS)
+  // ═════════════════════════════════════════════════════════
+  const PLANET_CONFIGS = [
+    {
+      index: 0,
+      id: 'dragster',
+      name: 'Planeta Dragster 🚗',
+      badge: 'Velocidad · Hot Wheels',
+      subtitle: 'Santuario de Velocidad y Coleccionismo',
+      accentColor: '#ff1744',
+      glowColor: 'rgba(255, 23, 68, 0.45)',
+      radius: 4.6,
+      orbitRadius: 130,
+      orbitSpeed: 0.045,
+      initialAngle: 0.35,
+      emissive: 0x550510,
+      actionIcon: '🏁',
+      actionLabel: '¡Acelerar a Fondo!',
+      toastMsg: '¡Aceleración máxima! ¡Haru va a toda velocidad por la pista!',
+      actionFX: 'dragster',
+      text: 'Haru, tienes una de las pasiones más auténticas y geniales que existen: tus carritos Hot Wheels. Cada modelo que coleccionas refleja ese espíritu libre, detallista, divertido y veloz que te hace tan única. ¡En esta pista cósmica nadie te frena!'
+    },
+    {
+      index: 1,
+      id: 'arcade',
+      name: 'Neo-Champion Arena 🎮',
+      badge: 'Gaming · Rocket League',
+      subtitle: 'La Fortaleza Gamer de Haru',
+      accentColor: '#00e5ff',
+      glowColor: 'rgba(0, 229, 255, 0.45)',
+      radius: 4.8,
+      orbitRadius: 175,
+      orbitSpeed: 0.035,
+      initialAngle: 1.45,
+      emissive: 0x003344,
+      actionIcon: '⚽💥',
+      actionLabel: '¡Anotar Gol Cósmico!',
+      toastMsg: '¡GOOOOOOOL GALÁCTICO! ¡Haru es la MVP indiscutible!',
+      actionFX: 'arcade',
+      text: 'En cada partida de Rocket League demuestras tu garra, tus reflejos y tu espíritu competitivo. Jugar contigo o verte jugar es pura emoción y risas inolvidables. Eres una gamer de corazón y la verdadera campeona en cualquier arena cósmica.'
+    },
+    {
+      index: 2,
+      id: 'puppy',
+      name: 'Refugio Canino 🐶',
+      badge: 'Ternura · Perritos',
+      subtitle: 'Mundo de Lealtad y Amor Incondicional',
+      accentColor: '#ffb300',
+      glowColor: 'rgba(255, 179, 0, 0.45)',
+      radius: 4.2,
+      orbitRadius: 220,
+      orbitSpeed: 0.028,
+      initialAngle: 2.6,
+      emissive: 0x442a00,
+      actionIcon: '🐾💛',
+      actionLabel: '¡Dar Mimos Cósmicos!',
+      toastMsg: '¡Mimos enviados! ¡Los perritos del universo te llenan de amor y lealtad!',
+      actionFX: 'puppy',
+      text: 'Tu amor sincero y tierno por los perritos dice todo sobre tu alma: eres protectora, leal, cariñosa y siempre atenta al bienestar de los demás. El universo sabe que el amor más puro camina en cuatro patas, y tú lo representas con toda tu luz.'
+    },
+    {
+      index: 3,
+      id: 'chicken',
+      name: 'Acrópolis Dorada 🍗',
+      badge: 'Delicia Suprema · Pollo Frito',
+      subtitle: 'El Templo del Pollo Frito Sagrado',
+      accentColor: '#ff9100',
+      glowColor: 'rgba(255, 145, 0, 0.45)',
+      radius: 4.4,
+      orbitRadius: 265,
+      orbitSpeed: 0.022,
+      initialAngle: 3.75,
+      emissive: 0x442200,
+      actionIcon: '🍗✨',
+      actionLabel: '¡Bendición Crujiente!',
+      toastMsg: '¡Bendición crujiente activada! ¡El platillo sagrado te llena de energía!',
+      actionFX: 'chicken',
+      text: 'Si hay una verdad absoluta en este universo, es que un buen plato de pollo frito crujiente tiene el poder de transformar cualquier día gris en una fiesta. Tu platillo sagrado tiene hoy su propio monumento estelar entre las constelaciones.'
+    },
+    {
+      index: 4,
+      id: 'sakura',
+      name: 'Sakura Cosmos 🎌',
+      badge: 'Arte · Animeverse',
+      subtitle: 'El Universo Anime de Haru',
+      accentColor: '#f48fb1',
+      glowColor: 'rgba(244, 143, 177, 0.45)',
+      radius: 4.6,
+      orbitRadius: 310,
+      orbitSpeed: 0.018,
+      initialAngle: 4.9,
+      emissive: 0x331020,
+      actionIcon: '🌸✨',
+      actionLabel: '¡Invocar Sakura Estelar!',
+      toastMsg: '¡Torbellino de pétalos invocado! ¡Tu resiliencia es legendaria!',
+      actionFX: 'sakura',
+      text: 'Las grandes historias de anime nos enseñan sobre la perseverancia, los lazos inquebrantables y el valor de no rendirse jamás. En cada serie y personaje que amas hay un reflejo de tu propia fortaleza, dulzura y sensibilidad artística.'
+    },
+    {
+      index: 5,
+      id: 'supernova',
+      name: 'Supernova Haru 📱',
+      badge: 'Comunidad · TikTok & Lives',
+      subtitle: 'Estrella de TikTok y Creadora',
+      accentColor: '#e040fb',
+      glowColor: 'rgba(224, 64, 251, 0.5)',
+      radius: 5.2,
+      orbitRadius: 360,
+      orbitSpeed: 0.014,
+      initialAngle: 5.95,
+      emissive: 0x330044,
+      actionIcon: '💖🚀',
+      actionLabel: '¡Lluvia de Amor & Likes!',
+      toastMsg: '¡Ola masiva de likes y apoyo! ¡Tu comunidad te adora!',
+      actionFX: 'supernova',
+      text: 'Verte crear tu comunidad en TikTok, compartir tus directos, deleitar con tu hermosa voz y conectar de manera tan genuina con tantas personas es algo maravilloso. Estás brillando con luz propia y apenas es el comienzo de algo gigante.'
+    }
+  ];
+
+  function createPlanetTexture(type) {
+    const cv = document.createElement('canvas');
+    cv.width = 512; cv.height = 256;
+    const ctx = cv.getContext('2d');
+
+    if (type === 'dragster') {
+      const grad = ctx.createLinearGradient(0, 0, 512, 256);
+      grad.addColorStop(0, '#700010');
+      grad.addColorStop(0.5, '#b71c1c');
+      grad.addColorStop(1, '#ff1744');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 512, 256);
+
+      ctx.fillStyle = '#ffd700';
+      ctx.fillRect(140, 0, 36, 256);
+      ctx.fillRect(190, 0, 16, 256);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(146, 0, 6, 256);
+
+      ctx.fillStyle = 'rgba(0,0,0,0.25)';
+      for (let y = 0; y < 256; y += 8) {
+        ctx.fillRect(0, y, 512, 4);
+      }
+    } else if (type === 'arcade') {
+      ctx.fillStyle = '#0a001a';
+      ctx.fillRect(0, 0, 512, 256);
+
+      ctx.strokeStyle = 'rgba(0, 229, 255, 0.45)';
+      ctx.lineWidth = 3;
+      for (let x = 0; x < 512; x += 32) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, 256); ctx.stroke();
+      }
+      for (let y = 0; y < 256; y += 32) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(512, y); ctx.stroke();
+      }
+
+      ctx.fillStyle = '#00e5ff';
+      for (let i = 0; i < 24; i++) {
+        const nx = (i * 47) % 512, ny = (i * 31) % 256;
+        ctx.beginPath(); ctx.arc(nx, ny, 4, 0, Math.PI*2); ctx.fill();
+      }
+    } else if (type === 'puppy') {
+      const grad = ctx.createRadialGradient(256, 128, 20, 256, 128, 260);
+      grad.addColorStop(0, '#ffe082');
+      grad.addColorStop(0.5, '#ffb74d');
+      grad.addColorStop(1, '#ff8a65');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 512, 256);
+
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.35)';
+      for (let i = 0; i < 18; i++) {
+        const bx = (i * 60) % 512, by = (i * 45) % 256;
+        ctx.beginPath();
+        ctx.ellipse(bx, by, 35, 18, 0, 0, Math.PI*2);
+        ctx.fill();
+      }
+    } else if (type === 'chicken') {
+      const grad = ctx.createLinearGradient(0, 0, 0, 256);
+      grad.addColorStop(0, '#ff6f00');
+      grad.addColorStop(0.5, '#ffa000');
+      grad.addColorStop(1, '#ffc107');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 512, 256);
+
+      for (let i = 0; i < 200; i++) {
+        const rx = Math.random() * 512, ry = Math.random() * 256;
+        ctx.fillStyle = Math.random() > 0.5 ? 'rgba(255, 255, 255, 0.65)' : 'rgba(191, 54, 12, 0.4)';
+        ctx.fillRect(rx, ry, Math.random() * 4 + 1, Math.random() * 4 + 1);
+      }
+    } else if (type === 'sakura') {
+      const grad = ctx.createLinearGradient(0, 0, 512, 0);
+      grad.addColorStop(0, '#f8bbd0');
+      grad.addColorStop(0.5, '#e1bee7');
+      grad.addColorStop(1, '#f48fb1');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 512, 256);
+
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+      for (let i = 0; i < 12; i++) {
+        ctx.fillRect(0, i * 22, 512, 10);
+      }
+    } else if (type === 'supernova') {
+      const grad = ctx.createRadialGradient(256, 128, 10, 256, 128, 250);
+      grad.addColorStop(0, '#ffffff');
+      grad.addColorStop(0.2, '#ffd54f');
+      grad.addColorStop(0.6, '#e040fb');
+      grad.addColorStop(1, '#4a148c');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 512, 256);
+
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+      ctx.lineWidth = 4;
+      for (let r = 30; r < 240; r += 40) {
+        ctx.beginPath();
+        ctx.arc(256, 128, r, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+    }
+
+    const tex = new THREE.CanvasTexture(cv);
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.ClampToEdgeWrapping;
+    return tex;
+  }
+
+  const planetObjects = [];
+  const planetHitMeshes = [];
+
+  // Iluminación para los planetas 3D
+  const planetAmbient = new THREE.AmbientLight(0xffffff, 0.9);
+  galaxyGroup.add(planetAmbient);
+
+  const planetCenterLight = new THREE.PointLight(0xffd700, 2.4, 1000);
+  planetCenterLight.position.set(0, 0, 0);
+  galaxyGroup.add(planetCenterLight);
+
+  const planetDirLight = new THREE.DirectionalLight(0xfff8e7, 0.85);
+  planetDirLight.position.set(180, 240, 180);
+  galaxyGroup.add(planetDirLight);
+
+  // Creación de cada planeta y sus órbitas doradas
+  PLANET_CONFIGS.forEach(cfg => {
+    const pGroup = new THREE.Group();
+
+    // 1. Línea Orbital Dorada
+    const orbitPts = [];
+    const segments = 120;
+    for (let i = 0; i <= segments; i++) {
+      const theta = (i / segments) * Math.PI * 2;
+      orbitPts.push(new THREE.Vector3(Math.cos(theta) * cfg.orbitRadius, 0, Math.sin(theta) * cfg.orbitRadius));
+    }
+    const orbitGeom = new THREE.BufferGeometry().setFromPoints(orbitPts);
+    const orbitMat = new THREE.LineBasicMaterial({
+      color: 0xffd700,
+      transparent: true,
+      opacity: 0.16,
+      blending: THREE.AdditiveBlending
+    });
+    const orbitLine = new THREE.Line(orbitGeom, orbitMat);
+    galaxyGroup.add(orbitLine);
+
+    // 2. Esfera principal del planeta
+    const pTex = createPlanetTexture(cfg.id);
+    const pGeom = new THREE.SphereGeometry(cfg.radius, 32, 32);
+    const pMat = new THREE.MeshStandardMaterial({
+      map: pTex,
+      roughness: 0.5,
+      metalness: 0.25,
+      emissive: new THREE.Color(cfg.emissive),
+      emissiveIntensity: 0.35
+    });
+    const pMesh = new THREE.Mesh(pGeom, pMat);
+    pGroup.add(pMesh);
+
+    // 3. Atmósfera Glow
+    const atmoGeom = new THREE.SphereGeometry(cfg.radius * 1.1, 24, 24);
+    const atmoMat = new THREE.MeshBasicMaterial({
+      color: new THREE.Color(cfg.accentColor),
+      transparent: true,
+      opacity: 0.28,
+      blending: THREE.AdditiveBlending,
+      side: THREE.BackSide
+    });
+    const atmoMesh = new THREE.Mesh(atmoGeom, atmoMat);
+    pGroup.add(atmoMesh);
+
+    // 4. Elementos específicos de cada mundo
+    let extraObject = null;
+    if (cfg.id === 'dragster') {
+      const rGeom = new THREE.RingGeometry(cfg.radius * 1.4, cfg.radius * 1.8, 48);
+      const rMat = new THREE.MeshBasicMaterial({
+        color: 0xffd700,
+        transparent: true,
+        opacity: 0.45,
+        side: THREE.DoubleSide,
+        blending: THREE.AdditiveBlending
+      });
+      extraObject = new THREE.Mesh(rGeom, rMat);
+      extraObject.rotation.x = Math.PI / 3;
+      pGroup.add(extraObject);
+    } else if (cfg.id === 'arcade') {
+      const hexGeom = new THREE.IcosahedronGeometry(cfg.radius * 1.35, 1);
+      const hexMat = new THREE.MeshBasicMaterial({
+        color: 0x00e5ff,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.4,
+        blending: THREE.AdditiveBlending
+      });
+      extraObject = new THREE.Mesh(hexGeom, hexMat);
+      pGroup.add(extraObject);
+    } else if (cfg.id === 'sakura') {
+      const rGeom = new THREE.RingGeometry(cfg.radius * 1.5, cfg.radius * 2.3, 64);
+      const rMat = new THREE.MeshBasicMaterial({
+        color: 0xf48fb1,
+        transparent: true,
+        opacity: 0.5,
+        side: THREE.DoubleSide,
+        blending: THREE.AdditiveBlending
+      });
+      extraObject = new THREE.Mesh(rGeom, rMat);
+      extraObject.rotation.x = Math.PI / 2.8;
+      pGroup.add(extraObject);
+    }
+
+    // 5. Mesh de impacto invisible para Raycaster
+    const hitGeom = new THREE.SphereGeometry(cfg.radius * 1.6, 16, 16);
+    const hitMat = new THREE.MeshBasicMaterial({ visible: false });
+    const hitMesh = new THREE.Mesh(hitGeom, hitMat);
+    hitMesh.userData = {
+      isPlanet: true,
+      index: cfg.index,
+      name: cfg.name,
+      config: cfg
+    };
+    pGroup.add(hitMesh);
+    planetHitMeshes.push(hitMesh);
+
+    // Guardar metadata en pGroup
+    pGroup.userData = {
+      ...cfg,
+      currentAngle: cfg.initialAngle
+    };
+
+    pGroup.position.x = Math.cos(cfg.initialAngle) * cfg.orbitRadius;
+    pGroup.position.z = Math.sin(cfg.initialAngle) * cfg.orbitRadius;
+    pGroup.position.y = Math.sin(cfg.initialAngle * 3) * 5;
+
+    galaxyGroup.add(pGroup);
+
+    planetObjects.push({
+      group: pGroup,
+      mesh: pMesh,
+      extra: extraObject,
+      config: cfg
+    });
+  });
+
+  // ═════════════════════════════════════════════════════════
+  //  NAVEGACIÓN ORBITAL CINEMÁTICA Y CONTROL DE CÁMARA (GSAP)
+  // ═════════════════════════════════════════════════════════
+  let hoveredPlanet = null;
+
+  function showPlanetTooltip(data) {
+    const tip = document.getElementById('planet-tooltip');
+    if (!tip) return;
+    tip.textContent = `${data.name} · Clic para explorar`;
+    tip.style.left = `${(mouse.x + 1) * 0.5 * innerWidth}px`;
+    tip.style.top  = `${(-mouse.y + 1) * 0.5 * innerHeight}px`;
+    tip.classList.add('show');
+  }
+
+  function hidePlanetTooltip() {
+    const tip = document.getElementById('planet-tooltip');
+    if (tip) tip.classList.remove('show');
+  }
+
+  function updateDockActive(index) {
+    document.querySelectorAll('.dock-btn').forEach(b => b.classList.remove('active'));
+    if (index === -1) {
+      const centerBtn = document.getElementById('dock-center');
+      if (centerBtn) centerBtn.classList.add('active');
+    } else {
+      const btn = document.getElementById(`dock-p${index}`);
+      if (btn) btn.classList.add('active');
+    }
+  }
+
+  function openPlanetSheet(index) {
+    const cfg = PLANET_CONFIGS[index];
+    if (!cfg) return;
+
+    const sheet = document.getElementById('planet-sheet');
+    document.getElementById('ps-badge').textContent = cfg.badge;
+    document.getElementById('ps-title').textContent = cfg.name;
+    document.getElementById('ps-subtitle').textContent = cfg.subtitle;
+    document.getElementById('ps-text').textContent = cfg.text;
+    document.getElementById('ps-action-icon').textContent = cfg.actionIcon;
+    document.getElementById('ps-action-label').textContent = cfg.actionLabel;
+
+    sheet.style.setProperty('--sheet-accent', cfg.accentColor);
+    sheet.style.setProperty('--sheet-glow', cfg.glowColor);
+    sheet.style.setProperty('--sheet-border', cfg.accentColor + '88');
+
+    sheet.classList.add('show');
+    updateDockActive(index);
+  }
+
+  function closePlanetSheet() {
+    const sheet = document.getElementById('planet-sheet');
+    if (sheet) sheet.classList.remove('show');
+  }
+
+  function flyToPlanet(index) {
+    if (index < 0 || index >= planetObjects.length) return;
+    hidePlanetTooltip();
+    
+    // Si la tarjeta central principal está abierta, cerrarla
+    cardOverlay.classList.remove('visible');
+    reopenBtn.classList.add('show');
+
+    cameraMode = 'TRANSITIONING';
+    focusedPlanetIndex = index;
+    closePlanetSheet();
+    updateDockActive(index);
+    playCelestialChime(index % PENTATONIC_FREQS.length);
+
+    const targetGroup = planetObjects[index].group;
+    const destDist = isMobile ? 24 : 19;
+    
+    dragging = false;
+
+    gsap.killTweensOf(cameraTarget);
+    gsap.killTweensOf(camera.position);
+
+    gsap.to(cameraTarget, {
+      x: targetGroup.position.x,
+      y: targetGroup.position.y,
+      z: targetGroup.position.z,
+      duration: 1.9,
+      ease: "power2.inOut"
+    });
+
+    const angle = targetGroup.userData.currentAngle || 0;
+    const endX = targetGroup.position.x + Math.cos(angle) * destDist;
+    const endY = targetGroup.position.y + 6;
+    const endZ = targetGroup.position.z + Math.sin(angle) * destDist;
+
+    planetAngleX = 0.22;
+    planetAngleY = angle;
+
+    gsap.to(camera.position, {
+      x: endX,
+      y: endY,
+      z: endZ,
+      duration: 1.9,
+      ease: "power2.inOut",
+      onComplete: () => {
+        cameraMode = 'PLANET';
+        openPlanetSheet(index);
+        playCelestialChime((index + 2) % PENTATONIC_FREQS.length);
+      }
+    });
+  }
+
+  function returnToGalaxyOverview() {
+    hidePlanetTooltip();
+    cameraMode = 'TRANSITIONING';
+    closePlanetSheet();
+    updateDockActive(-1);
+    playCelestialChime(0);
+
+    const normalDist = isMobile ? 320 : 280;
+    const endX = normalDist * Math.sin(rotY) * Math.cos(rotX);
+    const endY = normalDist * Math.sin(rotX);
+    const endZ = normalDist * Math.cos(rotY) * Math.cos(rotX);
+
+    gsap.killTweensOf(cameraTarget);
+    gsap.killTweensOf(camera.position);
+
+    gsap.to(cameraTarget, {
+      x: 0, y: 0, z: 0,
+      duration: 1.8,
+      ease: "power2.inOut"
+    });
+
+    gsap.to(camera.position, {
+      x: endX,
+      y: endY,
+      z: endZ,
+      duration: 1.8,
+      ease: "power2.inOut",
+      onComplete: () => {
+        cameraMode = 'GLOBAL';
+        focusedPlanetIndex = -1;
+        cameraTarget.set(0, 0, 0);
+      }
+    });
+  }
+
+  function navigatePlanet(delta) {
+    if (focusedPlanetIndex < 0) {
+      flyToPlanet(0);
+    } else {
+      const nextIndex = (focusedPlanetIndex + delta + planetObjects.length) % planetObjects.length;
+      flyToPlanet(nextIndex);
+    }
+  }
+
+  function triggerPlanetAction() {
+    if (focusedPlanetIndex < 0) return;
+    const cfg = PLANET_CONFIGS[focusedPlanetIndex];
+    if (!cfg) return;
+
+    showPhraseToast(cfg.toastMsg, cfg.actionIcon);
+    playCelestialChime((focusedPlanetIndex + 3) % PENTATONIC_FREQS.length);
+
+    const pObj = planetObjects[focusedPlanetIndex];
+    if (pObj && pObj.mesh) {
+      gsap.to(pObj.mesh.rotation, {
+        y: "+=6.28",
+        duration: 1.2,
+        ease: "power2.out"
+      });
+    }
+
+    for (let i = 0; i < 9; i++) {
+      setTimeout(() => {
+        spawnBurst(
+          innerWidth * 0.5 + (Math.random() - 0.5) * 220,
+          innerHeight * 0.45 + (Math.random() - 0.5) * 160
+        );
+      }, i * 70);
+    }
+  }
+
+  // ═════════════════════════════════════════════════════════
   //  10. LOOP DE ANIMACIÓN THREE.JS (60 FPS SUAVE Y LIGERO)
   // ═════════════════════════════════════════════════════════
   const clock = new THREE.Clock();
@@ -1905,59 +2791,116 @@
         document.getElementById('audio-control').classList.add('show');
         const rHint = document.getElementById('rotation-hint');
         if (rHint) rHint.classList.add('show');
+        const pDock = document.getElementById('planet-dock');
+        if (pDock) pDock.classList.add('show');
         startCardSparkles();
         playCelestialChime(2);
       }
     } else if (state === 'GALAXY') {
-      currentDist += (targetDist - currentDist) * 0.06;
-      currentParallaxX += (targetParallaxX - currentParallaxX) * 0.05;
-      currentParallaxY += (targetParallaxY - currentParallaxY) * 0.05;
+      if (cameraMode === 'GLOBAL') {
+        currentDist += (targetDist - currentDist) * 0.06;
+        currentParallaxX += (targetParallaxX - currentParallaxX) * 0.05;
+        currentParallaxY += (targetParallaxY - currentParallaxY) * 0.05;
 
-      const effRotX = Math.max(-1.3, Math.min(1.3, rotX + currentParallaxY));
-      const effRotY = rotY + currentParallaxX;
+        const effRotX = Math.max(-1.3, Math.min(1.3, rotX + currentParallaxY));
+        const effRotY = rotY + currentParallaxX;
 
-      const cx = Math.cos(effRotX), sx = Math.sin(effRotX), cy = Math.cos(effRotY), sy = Math.sin(effRotY);
-      camera.position.set(currentDist * sy * cx, currentDist * sx, currentDist * cy * cx);
-      camera.lookAt(0, 0, 0);
+        const cx = Math.cos(effRotX), sx = Math.sin(effRotX), cy = Math.cos(effRotY), sy = Math.sin(effRotY);
+        camera.position.set(currentDist * sy * cx, currentDist * sx, currentDist * cy * cx);
+        cameraTarget.set(0, 0, 0);
+        camera.lookAt(cameraTarget);
+      } else if (cameraMode === 'PLANET' && focusedPlanetIndex >= 0) {
+        const pObj = planetObjects[focusedPlanetIndex];
+        if (pObj && pObj.group) {
+          cameraTarget.copy(pObj.group.position);
+          const pDist = isMobile ? 24 : 19;
+          const cy = Math.cos(planetAngleY), sy = Math.sin(planetAngleY);
+          const cx = Math.cos(planetAngleX), sx = Math.sin(planetAngleX);
+          camera.position.set(
+            cameraTarget.x + pDist * sy * cx,
+            cameraTarget.y + pDist * sx,
+            cameraTarget.z + pDist * cy * cx
+          );
+          camera.lookAt(cameraTarget);
+        }
+      } else if (cameraMode === 'TRANSITIONING') {
+        camera.lookAt(cameraTarget);
+      }
 
-      // Raycaster optimizado: se evalúa cada 2 frames para ahorrar recursos
-      if (frameCount % 2 === 0 && !cardOverlay.classList.contains('visible')) {
+      // Actualizar posición orbital de cada uno de los 6 planetas
+      planetObjects.forEach(p => {
+        p.group.userData.currentAngle += delta * p.config.orbitSpeed;
+        const a = p.group.userData.currentAngle;
+        p.group.position.x = Math.cos(a) * p.config.orbitRadius;
+        p.group.position.z = Math.sin(a) * p.config.orbitRadius;
+        p.group.position.y = Math.sin(a * 2.5 + p.config.index) * 5;
+        p.mesh.rotation.y += delta * 0.6;
+        if (p.extra) {
+          p.extra.rotation.z += delta * 0.9;
+        }
+      });
+
+      // Raycaster: detección de planetas y elementos interactivos
+      const isCardOpen = cardOverlay.classList.contains('visible');
+      const isSheetOpen = document.getElementById('planet-sheet') && document.getElementById('planet-sheet').classList.contains('show');
+
+      if (frameCount % 2 === 0 && !isCardOpen && !isSheetOpen) {
         raycaster.setFromCamera(mouse, camera);
-        const interactables = [...phraseGroup.children, ...flowerGroup.children, constHitMesh];
-        const intersects = raycaster.intersectObjects(interactables);
 
-        if (intersects.length > 0) {
-          const hit = intersects[0].object;
-          if (hoveredObj !== hit) {
-            if (hoveredObj && hoveredObj.userData.baseScale) {
-              hoveredObj.scale.copy(hoveredObj.userData.baseScale);
+        // Detectar si el puntero está sobre un planeta
+        if (cameraMode === 'GLOBAL') {
+          const planetHits = raycaster.intersectObjects(planetHitMeshes);
+          if (planetHits.length > 0) {
+            const hitPlanet = planetHits[0].object;
+            if (hoveredPlanet !== hitPlanet) {
+              hoveredPlanet = hitPlanet;
+              document.body.style.cursor = 'pointer';
+              showPlanetTooltip(hitPlanet.userData);
             }
-            hoveredObj = hit;
-            if (!hoveredObj.userData.baseScale && hoveredObj.scale) {
-              hoveredObj.userData.baseScale = hoveredObj.scale.clone();
+          } else {
+            if (hoveredPlanet) {
+              hoveredPlanet = null;
+              hidePlanetTooltip();
             }
-            document.body.style.cursor = 'pointer';
 
-            if (hit.userData.isConstellation) {
-              const badge = document.getElementById('constellation-badge');
-              if (badge) badge.classList.add('show');
+            // Comprobar frases flotantes, flores y constelación
+            const interactables = [...phraseGroup.children, ...flowerGroup.children, constHitMesh];
+            const intersects = raycaster.intersectObjects(interactables);
+
+            if (intersects.length > 0) {
+              const hit = intersects[0].object;
+              if (hoveredObj !== hit) {
+                if (hoveredObj && hoveredObj.userData.baseScale) {
+                  hoveredObj.scale.copy(hoveredObj.userData.baseScale);
+                }
+                hoveredObj = hit;
+                if (!hoveredObj.userData.baseScale && hoveredObj.scale) {
+                  hoveredObj.userData.baseScale = hoveredObj.scale.clone();
+                }
+                document.body.style.cursor = 'pointer';
+
+                if (hit.userData.isConstellation) {
+                  const badge = document.getElementById('constellation-badge');
+                  if (badge) badge.classList.add('show');
+                }
+              }
+              if (hoveredObj && hoveredObj.userData.baseScale) {
+                const bs = hoveredObj.userData.baseScale;
+                const pulse = 1.25 + 0.06 * Math.sin(t * 5);
+                hoveredObj.scale.set(bs.x * pulse, bs.y * pulse, bs.z);
+              }
+            } else {
+              if (hoveredObj) {
+                if (hoveredObj.userData.baseScale) hoveredObj.scale.copy(hoveredObj.userData.baseScale);
+                if (hoveredObj.userData.isConstellation) {
+                  const badge = document.getElementById('constellation-badge');
+                  if (badge) badge.classList.remove('show');
+                }
+                hoveredObj = null;
+              }
+              if (!dragging) document.body.style.cursor = 'default';
             }
           }
-          if (hoveredObj && hoveredObj.userData.baseScale) {
-            const bs = hoveredObj.userData.baseScale;
-            const pulse = 1.25 + 0.06 * Math.sin(t * 5);
-            hoveredObj.scale.set(bs.x * pulse, bs.y * pulse, bs.z);
-          }
-        } else {
-          if (hoveredObj) {
-            if (hoveredObj.userData.baseScale) hoveredObj.scale.copy(hoveredObj.userData.baseScale);
-            if (hoveredObj.userData.isConstellation) {
-              const badge = document.getElementById('constellation-badge');
-              if (badge) badge.classList.remove('show');
-            }
-            hoveredObj = null;
-          }
-          if (!dragging) document.body.style.cursor = 'default';
         }
       }
     }
@@ -2109,7 +3052,7 @@
   }
 
   function onDown(e) {
-    if (e.target && (e.target.closest('#glass-card') || e.target.closest('#wish-star-overlay') || e.target.closest('#audio-control') || e.target.closest('#phrase-toast') || e.target.closest('#reopen-btn'))) {
+    if (e.target && (e.target.closest('#glass-card') || e.target.closest('#planet-sheet') || e.target.closest('#planet-dock') || e.target.closest('#wish-star-overlay') || e.target.closest('#audio-control') || e.target.closest('#phrase-toast') || e.target.closest('#reopen-btn'))) {
       return;
     }
     if (state !== 'GALAXY') return;
@@ -2131,7 +3074,6 @@
         const cx = innerWidth / 2, cy = innerHeight / 2;
         const dx = (t.clientX - cx) / cx;
         const dy = (t.clientY - cy) / cy;
-        // Inclinación muy sutil al pasar sobre la tarjeta para máxima comodidad de lectura y scroll
         const tiltFactor = isHoveringCard ? 3 : 7;
         card.style.transform = `rotateY(${dx * tiltFactor}deg) rotateX(${-dy * (tiltFactor * 0.8)}deg)`;
       }
@@ -2151,8 +3093,13 @@
 
     if (!dragging || state !== 'GALAXY') return;
     const dx = (t.clientX - lastX) / innerWidth, dy = (t.clientY - lastY) / innerHeight;
-    rotY -= dx * (isMobile ? 4.2 : 5);
-    rotX = Math.max(-1.3, Math.min(1.3, rotX + dy * (isMobile ? 3 : 3.5)));
+    if (cameraMode === 'PLANET') {
+      planetAngleY -= dx * 4.2;
+      planetAngleX = Math.max(-1.1, Math.min(1.1, planetAngleX + dy * 3.2));
+    } else if (cameraMode === 'GLOBAL') {
+      rotY -= dx * (isMobile ? 4.2 : 5);
+      rotX = Math.max(-1.3, Math.min(1.3, rotX + dy * (isMobile ? 3 : 3.5)));
+    }
     lastX = t.clientX; lastY = t.clientY;
   }
 
@@ -2167,24 +3114,28 @@
 
   addEventListener('wheel', e => {
     // Si el usuario hace scroll dentro de la tarjeta o un overlay, no hacemos zoom en la galaxia
-    if (e.target && (e.target.closest('#glass-card') || e.target.closest('#wish-star-overlay'))) {
+    if (e.target && (e.target.closest('#glass-card') || e.target.closest('#planet-sheet') || e.target.closest('#planet-dock') || e.target.closest('#wish-star-overlay'))) {
       return;
     }
     if (state === 'GALAXY') {
-      targetDist = Math.max(160, Math.min(600, targetDist + e.deltaY * 0.25));
+      if (cameraMode === 'GLOBAL') {
+        targetDist = Math.max(160, Math.min(600, targetDist + e.deltaY * 0.25));
+      }
     }
   }, {passive: true});
 
   let pinchDist = 0;
   addEventListener('touchmove', e => {
-    if (e.target && (e.target.closest('#glass-card') || e.target.closest('#wish-star-overlay'))) {
+    if (e.target && (e.target.closest('#glass-card') || e.target.closest('#planet-sheet') || e.target.closest('#planet-dock') || e.target.closest('#wish-star-overlay'))) {
       return; // Permite el scroll táctil nativo dentro de la tarjeta
     }
     if (state !== 'GALAXY') return;
     if (e.touches && e.touches.length === 2) {
       e.preventDefault();
       const d = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
-      if (pinchDist) targetDist = Math.max(160, Math.min(600, targetDist + (pinchDist - d) * 0.5));
+      if (pinchDist && cameraMode === 'GLOBAL') {
+        targetDist = Math.max(160, Math.min(600, targetDist + (pinchDist - d) * 0.5));
+      }
       pinchDist = d;
     }
   }, {passive: false});
@@ -2218,10 +3169,22 @@
   }
 
   document.addEventListener('click', e => {
-    if (e.target.closest('#start-screen, #card-overlay, #reopen-btn, #audio-control, #travel-hint, #phrase-toast, #constellation-badge')) return;
+    if (e.target.closest('#start-screen, #card-overlay, #reopen-btn, #audio-control, #travel-hint, #phrase-toast, #constellation-badge, #planet-sheet, #planet-dock')) return;
 
     if (state === 'GALAXY') {
       raycaster.setFromCamera(mouse, camera);
+
+      // Si hacemos clic en un planeta en 3D en la vista global:
+      if (cameraMode === 'GLOBAL') {
+        const planetIntersects = raycaster.intersectObjects(planetHitMeshes);
+        if (planetIntersects.length > 0) {
+          const hitP = planetIntersects[0].object;
+          flyToPlanet(hitP.userData.index);
+          spawnBurst(e.clientX, e.clientY);
+          return;
+        }
+      }
+
       const interactables = [...phraseGroup.children, ...flowerGroup.children, constHitMesh];
       const intersects = raycaster.intersectObjects(interactables);
 
